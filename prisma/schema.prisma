@@ -1,0 +1,61 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model players {
+    id                 Int       @id @default(autoincrement())
+    name               String    @db.VarChar(100)
+    overall            Int       @default(0)
+    number             Int       @default(0)
+    age                Int       @default(0)
+    position           String    @db.VarChar(5)
+    role               String    @db.VarChar(50)
+    salary             Int       @default(0)
+    price              Int       @default(0)
+    termination_clause Int?      @default(0)
+    country            String    @db.VarChar(50)
+    created_at         DateTime  @default(now()) @db.DateTime(0)
+    updated_at         DateTime? @updatedAt @db.DateTime(0)
+
+    @@map("players")
+}
+
+model posts {
+    id               Int       @id @default(autoincrement())
+    title            String    @db.VarChar(255)
+    slug             String    @unique(map: "slug") @db.VarChar(255)
+	excerpt          String?   @db.Text
+    content          String    @db.Text
+    author           String    @db.VarChar(100)
+    type             String    @default("post") @db.VarChar(50)
+    published        Boolean   @default(false)
+    published_at     DateTime? @db.DateTime(0)
+    thumbnail        String?   @default("") @db.VarChar(255)
+    tags             String?   @db.VarChar(255)
+    category         String?   @db.VarChar(100)
+    meta_title       String?   @db.VarChar(255)
+    meta_description String?   @db.VarChar(255)
+    meta_keywords    String?   @db.VarChar(255)
+    created_at       DateTime? @default(now()) @db.DateTime(0)
+    updated_at       DateTime? @updatedAt @db.DateTime(0)
+
+    @@map("posts")
+}
+
+model titles {
+    id          Int       @id @default(autoincrement())
+    name        String    @db.VarChar(100)
+    slug        String    @unique(map: "slug") @db.VarChar(100)
+    description String?   @db.Text
+    image       String?   @default("") @db.VarChar(255)
+    quantity    Int       @default(0)
+    created_at  DateTime  @default(now()) @db.DateTime(0)
+    updated_at  DateTime? @updatedAt @db.DateTime(0)
+
+    @@map("titles")
+}
