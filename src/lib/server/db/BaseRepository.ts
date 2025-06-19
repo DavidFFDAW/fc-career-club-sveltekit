@@ -10,6 +10,7 @@ export class BaseRepository<
 	WhereUniqueInput,
 	FindManyArgs
 > {
+	protected requiredFields: string[] = [];
 	protected prisma: PrismaClient;
 	protected model: any; // Aquí guardaremos la referencia al cliente del modelo de Prisma
 
@@ -33,10 +34,7 @@ export class BaseRepository<
 		});
 	}
 
-	paginate(
-		page: number,
-		args?: FindManyArgs
-	): Promise<[number, T[]]> {
+	paginate(page: number, args?: FindManyArgs): Promise<[number, T[]]> {
 		const take = 15;
 		const prepage = page < 1 ? 1 : page;
 		const skip = (prepage - 1) * take;
@@ -69,5 +67,9 @@ export class BaseRepository<
 
 	truncate(): Promise<number> {
 		return this.prisma.$executeRaw`TRUNCATE TABLE ${this.model._meta.name};`;
+	}
+
+	getRequiredFields(): string[] {
+		return this.requiredFields;
 	}
 }

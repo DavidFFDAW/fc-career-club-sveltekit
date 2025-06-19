@@ -1,22 +1,19 @@
 <script lang="ts">
-	import GeneralUtils from "$lib/utils/general.utils";
-
 	export let label: string;
 	export let name: string;
 	export let datalist: string[] | null = null;
-	$: id = $$restProps.id || `${name}-${GeneralUtils.generateRandomIdentifier(12)}`;
 </script>
 
-<div class="w1 form-item botaniq-form-item">
+<div class="w1 form-item app-form-item">
 	{#if datalist}
-		<datalist id="{id}-datalist">
+		<datalist id="{name}-datalist">
 			{#each datalist as value}
 				<option value={value} label="{value}"></option>
 			{/each}
 		</datalist>
 	{/if}
 
-	<label>
+	<label class="input-item label-input-container">
 		<span class="label">
 			{label}
 			{#if $$restProps.required}
@@ -33,7 +30,7 @@
 				{/each}
 			</select>
 		{:else}
-			<input {name} {...$$restProps} list="{id}-datalist" />
+			<input {name} {...$$restProps} list="{name}-datalist" />
 		{/if}
 
 		{#if $$restProps.error}

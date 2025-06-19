@@ -20,9 +20,4 @@
 			Noticia: Cristiano dice adiós tras una carrera legendaria
 		</a>
 	</div>
-
-	<PlayerShirt
-		name="Mastantuono"
-		number="10"
-	/>
 </section>
