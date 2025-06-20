@@ -1,10 +1,20 @@
 <script lang="ts">
+	import type { players } from '@prisma/client';
 	import { enhance } from '$app/forms';
-	import Input from '$lib/components/forms/input.svelte';
+	import PlayerForm from '$lib/components/players/player-form.svelte';
+	import PlayerShirt from '$lib/components/players/player-shirt.svelte';
 
+	let playerData: players = {
+		name: '',
+		number: 0,
+		overall: 0,
+		age: 0,
+		position: '',
+		role: '',
+		salary: 0
+	} as players;
 	export let data;
-	export let form;
-	console.log('Data from load function:', data);
+	export let form: { error?: string } | undefined;
 </script>
 
 <div class="page-players-container">
@@ -15,73 +25,7 @@
 
 	<header class="admin-players-header-box">
 		<form action="" method="post" use:enhance>
-			<div class="inputs-container">
-				<Input
-					label="Nombre"
-					name="name"
-					type="text"
-					placeholder="Player Name"
-				/>
-				<Input
-					label="Media"
-					name="overall"
-					type="number"
-					placeholder="Overall Rating"
-				/>
-				<Input
-					label="Dorsal"
-					name="number"
-					type="number"
-					placeholder="Player Number"
-				/>
-				<Input
-					label="Edad"
-					name="age"
-					type="number"
-					placeholder="Player Age"
-				/>
-				<Input
-					label="Posición"
-					name="position"
-					type="text"
-					maxlength="4"
-					placeholder="Player Position"
-				/>
-
-				<Input
-					label="Rol"
-					name="role"
-					type="text"
-					placeholder="Player Role"
-				/>
-
-				<Input
-					label="Salario"
-					name="salary"
-					type="number"
-					placeholder="Player Salary"
-				/>
-				<Input
-					label="Precio"
-					name="price"
-					type="number"
-					placeholder="Player Price"
-				/>
-
-				<Input
-					label="Cláusula de rescisión"
-					name="termination_clause"
-					type="number"
-					placeholder="Termination Clause"
-				/>
-
-				<Input
-					label="País"
-					name="country"
-					type="text"
-					placeholder="Player Country"
-				/>
-			</div>
+			<PlayerForm bind:playerData />
 
 			{#if form && form.error}
 				<div class="error-message">
@@ -90,28 +34,34 @@
 			{/if}
 
 			<div class="submit-buttons-container">
-				<button type="submit" class="btn btn-primary">
+				<button type="submit" class="btn btn-primary icon icon-button">
 					<i class="bi bi-plus-circle"></i>
-					Crear jugador
+					<span>Crear jugador</span>
 				</button>
 			</div>
 		</form>
 	</header>
 
-	{#if data.players.length > 0}
-		<ul class="players-list">
-			{#each data.players as player}
-				<li class="player-item">
-					<a href={`/admin/players/${player.id}`} class="player-link">
-						<i class="bi bi-person-fill"></i>
-						{player.name}
-					</a>
-				</li>
-			{/each}
-		</ul>
-	{:else}
-		<p>No players found.</p>
-	{/if}
+	<div class="list-container down">
+		{#if data.players.length > 0}
+			<ul class="players-list admin-list">
+				{#each data.players as player}
+					<li class="w1 flex start acenter player-item admin-list-item">
+						<a href={`/admin/players/${player.id}`} class="player-link block">
+							<PlayerShirt name={player.name} number={player.number} />
+							<h2>{player.name}</h2>
+							<p class="player-number">#{player.age}</p>
+							<p class="player-position">{player.position}</p>
+							<p class="player-role">{player.role}</p>
+							<p class="player-salary">${player.salary}</p>
+						</a>
+					</li>
+				{/each}
+			</ul>
+		{:else}
+			<p>No players found.</p>
+		{/if}
+	</div>
 </div>
 
 <style>
@@ -124,10 +74,5 @@
 		background-color: #fff;
 		border-radius: 8px;
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	}
-	header.admin-players-header-box .inputs-container {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		gap: 1rem;
 	}
 </style>

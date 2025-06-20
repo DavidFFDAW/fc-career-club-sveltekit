@@ -4,13 +4,13 @@ import { BaseRepository } from '../BaseRepository';
 
 export class PlayerRepository extends BaseRepository<
 	players,
-	Prisma.postsCreateInput,
-	Prisma.postsUpdateInput,
-	Prisma.postsWhereUniqueInput,
-	Prisma.postsFindManyArgs
+	Prisma.playersCreateInput,
+	Prisma.playersUpdateInput,
+	Prisma.playersWhereInput,
+	Prisma.playersOrderByWithRelationInput
 > {
 	protected requiredFields: string[] = ['name', 'number', 'position'];
-	
+
 	constructor() {
 		super('players');
 	}

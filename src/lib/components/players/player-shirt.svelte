@@ -1,13 +1,7 @@
 <script lang="ts">
-	const {
-		name,
-		number,
-		width = 140
-	} = $props<{
-		name: string;
-		number: number | string;
-		width?: number;
-	}>();
+	export let name: string;
+	export let number: number | string;
+	export let width: number = 140;
 </script>
 
 <div class="player-shirt-container" style="--width: {width}px;">
@@ -60,11 +54,11 @@
 		overflow: hidden;
 		white-space: nowrap;
 	}
-	
+
 	.player-shirt-name-container .player-shirt-name {
 		top: calc(var(--width) * 13 / 140);
 		left: 50%;
-		transform: translateX(-50%) scale(.8, 1.05);
+		transform: translateX(-50%) scale(0.8, 1.05);
 		font-size: 13px;
 		font-weight: 600;
 		color: #000;
