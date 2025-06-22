@@ -1,7 +1,8 @@
 import { PlayerRepository } from '$lib/server/db/repository/PlayerRepository';
 import Helpers from '$lib/server/utils/server.helper.js';
+import { slugify } from '$lib/utils/general.utils.js';
 
-export const load = async ({ locals }) => {
+export const load = async () => {
 	const playerRepository = new PlayerRepository();
 	const players = await playerRepository.get();
 
@@ -9,28 +10,21 @@ export const load = async ({ locals }) => {
 };
 
 export const actions = {
-	default: async ({ request, locals }) => {
+	default: async ({ request }) => {
 		const formData = await request.formData();
 		const repository = new PlayerRepository();
 
 		try {
 			const requiredFields = repository.getRequiredFields();
-			// const repository = await playerRepository.create(formData);
-			console.log(Object.fromEntries(formData.entries()));
-			console.log({ requiredFields });
+			const { error, message } = Helpers.checkRequiredFields(formData, requiredFields);
+			if (error) return Helpers.error(message, 400);
 
 			const playerName = formData.get('name') as string;
-			const number = formData.get('number') as string;
+			const existingPlayer = await repository.getBySlug(slugify(playerName));
+			if (existingPlayer) return Helpers.error('Player with this name already exists', 400);
 
-			await repository.create({
-				name: playerName,
-				slug: playerName.toLowerCase().replace(/\s+/g, '-'),
-				number: Number(number),
-				position: formData.get('position') as string,
-				role: formData.get('role') as string,
-				shirt_name: formData.get('name') as string,
-				country: formData.get('country') as string
-			});
+			const creatingPlayerObject = repository.getPlayerObject(formData);
+			await repository.create(creatingPlayerObject);
 
 			return Helpers.success('Player created successfully', 201);
 		} catch (error) {

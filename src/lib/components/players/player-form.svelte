@@ -2,6 +2,8 @@
 	import { type players } from '@prisma/client';
 	import PlayerShirt from './player-shirt.svelte';
 	import Input from '../forms/input.svelte';
+	import PriceInput from '../forms/price-input.svelte';
+	import { playerPositions } from '$lib/constants/players.js';
 
 	export let playerData: players;
 </script>
@@ -16,6 +18,13 @@
 			type="text"
 			placeholder="Player Name"
 			bind:value={playerData.name}
+		/>
+		<Input
+			label="Nombre de camiseta"
+			name="shirt_name"
+			type="text"
+			placeholder="Player Shirt Name"
+			bind:value={playerData.shirt_name}
 		/>
 		<Input
 			label="Dorsal"
@@ -44,10 +53,14 @@
 		<Input
 			label="Posición"
 			name="position"
-			type="text"
+			type="select"
 			maxlength="4"
 			placeholder="Player Position"
 			bind:value={playerData.position}
+			options={playerPositions.map((position) => ({
+				value: position,
+				label: position
+			}))}
 		/>
 
 		<Input
@@ -58,27 +71,24 @@
 			bind:value={playerData.role}
 		/>
 
-		<Input
+		<PriceInput
 			label="Salario"
 			name="salary"
-			type="number"
 			placeholder="Player Salary"
 			bind:value={playerData.salary}
 		/>
-		<Input
-			label="Precio"
+		<PriceInput
+			label="Valor de mercado"
 			name="price"
-			type="number"
 			placeholder="Player Price"
 			bind:value={playerData.price}
 		/>
 
-		<Input
+		<PriceInput
 			label="Cláusula de rescisión"
 			name="termination_clause"
-			type="number"
 			placeholder="Termination Clause"
-			bind:value={playerData.termination_clause}
+			bind:value={playerData.termination_clause as number | undefined}
 		/>
 
 		<Input

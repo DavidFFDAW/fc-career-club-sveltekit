@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { players } from '@prisma/client';
-	import { enhance } from '$app/forms';
 	import PlayerForm from '$lib/components/players/player-form.svelte';
 	import PlayerShirt from '$lib/components/players/player-shirt.svelte';
+	import NumberUtils from '$lib/utils/number.utils';
+	import AppForm from '$lib/components/forms/app-form.svelte';
 
 	let playerData: players = {
 		name: '',
@@ -14,17 +15,14 @@
 		salary: 0
 	} as players;
 	export let data;
-	export let form: { error?: string } | undefined;
+	export let form: { error?: string } | undefined = undefined;
 </script>
 
 <div class="page-players-container">
-	<div class="title">
-		<h1>Players</h1>
-		<small>Manage your players here.</small>
-	</div>
+	<h1>Administración de jugadores</h1>
 
-	<header class="admin-players-header-box">
-		<form action="" method="post" use:enhance>
+	<header class="admin-players-header-box down">
+		<AppForm>
 			<PlayerForm bind:playerData />
 
 			{#if form && form.error}
@@ -39,22 +37,20 @@
 					<span>Crear jugador</span>
 				</button>
 			</div>
-		</form>
+		</AppForm>
 	</header>
 
 	<div class="list-container down">
 		{#if data.players.length > 0}
 			<ul class="players-list admin-list">
 				{#each data.players as player}
-					<li class="w1 flex start acenter player-item admin-list-item">
-						<a href={`/admin/players/${player.id}`} class="player-link block">
-							<PlayerShirt name={player.name} number={player.number} />
-							<h2>{player.name}</h2>
-							<p class="player-number">#{player.age}</p>
-							<p class="player-position">{player.position}</p>
-							<p class="player-role">{player.role}</p>
-							<p class="player-salary">${player.salary}</p>
-						</a>
+					<li class="w1 player-item admin-list-item">
+						<PlayerShirt name={player.name} number={player.number} />
+						<h4>{player.name}</h4>
+						<p class="player-number">#{player.age}</p>
+						<p class="player-position">{player.position}</p>
+						<p class="player-role">{player.role}</p>
+						<p class="player-salary">{NumberUtils.formatPrice(player.salary)}</p>
 					</li>
 				{/each}
 			</ul>
@@ -74,5 +70,16 @@
 		background-color: #fff;
 		border-radius: 8px;
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	}
+
+	.admin-list-item {
+		grid-template-columns: repeat(5, 1fr);
+	}
+
+	.error-message {
+		color: #fff;
+		background-color: #dc3545;
+		padding: 0.5rem;
+		border-radius: 0.25rem;
 	}
 </style>
