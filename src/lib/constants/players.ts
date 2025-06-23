@@ -11,3 +11,5 @@ export const playerPositions: string[] = [
 	'EI',
 	'DC'
 ];
+
+export const playerRoles: string[] = ['Clave', 'Importante', 'Rotación', 'Ocasional', 'Promesa'];

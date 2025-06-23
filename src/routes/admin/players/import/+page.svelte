@@ -1,25 +1,11 @@
 <script lang="ts">
 	import Input from '$lib/components/forms/input.svelte';
-
-	interface ImportingPlayer {
-		name: string;
-		shirt_name: string;
-		number: number;
-		position: string;
-		role: string;
-		overall: number;
-		overall_increment: number;
-		age: number;
-		country: string;
-		price: number;
-		price_percentage: number;
-		salary: number;
-		termination_clause: number;
-		status: string;
-	}
+	import PlayerForm from '$lib/components/players/player-form.svelte';
+	import type { SlugifiedPlayer } from '$lib/types/interfaces';
+	import { slugify } from '$lib/utils/general.utils';
 
 	let csv: File | null = null;
-	let csvData: ImportingPlayer[] = [];
+	let csvData: SlugifiedPlayer[] = [];
 
 	const readCsvDatas = async (file: File): Promise<any[]> => {
 		const text = (await file.text()).replace(/(\r\n|\n|\r)/g, '\n'); // Normalizar saltos de línea
@@ -44,6 +30,7 @@
 			] = row;
 			return {
 				name,
+				slug: slugify(name),
 				shirt_name,
 				number: parseInt(number, 10),
 				position,
@@ -103,67 +90,7 @@
 	<ul class="importing-players-datas w1 flex column start astart gap-medium">
 		{#each csvData as player}
 			<li class="w1 box player-box-item">
-				<div class="w1 flex start acenter player-name">
-					<Input label="Nombre" type="text" bind:value={player.name} name="name[]" required />
-					<Input
-						type="text"
-						label="Nombre en camiseta"
-						bind:value={player.shirt_name}
-						name="shirt_name[]"
-						required
-					/>
-					<Input label="Dorsal" type="number" bind:value={player.number} required name="number[]" />
-				</div>
-
-				<div class="player-details">
-					<Input
-						type="text"
-						bind:value={player.position}
-						label="Posición"
-						required
-						name="position[]"
-					/>
-					<Input type="text" bind:value={player.role} label="Rol" required name="role[]" />
-					<Input
-						type="number"
-						bind:value={player.overall}
-						label="Overall"
-						required
-						name="overall[]"
-					/>
-					<Input
-						type="number"
-						bind:value={player.overall_increment}
-						label="Incremento Overall"
-						required
-						name="overall_increment[]"
-					/>
-					<Input type="number" bind:value={player.age} label="Edad" required name="age[]" />
-					<Input type="text" bind:value={player.country} label="País" required name="country[]" />
-					<Input type="number" bind:value={player.price} label="Precio" required name="price[]" />
-					<Input
-						type="number"
-						bind:value={player.price_percentage}
-						label="Porcentaje Precio"
-						required
-						name="price_percentage[]"
-					/>
-					<Input
-						type="number"
-						bind:value={player.salary}
-						label="Salario"
-						required
-						name="salary[]"
-					/>
-					<Input
-						type="number"
-						bind:value={player.termination_clause}
-						label="Cláusula de Rescisión"
-						required
-						name="termination_clause[]"
-					/>
-					<Input type="text" bind:value={player.status} label="Estado" required name="status[]" />
-				</div>
+				<PlayerForm playerData={player} multiple />
 			</li>
 		{/each}
 	</ul>

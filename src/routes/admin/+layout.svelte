@@ -1,10 +1,14 @@
 <script lang="ts">
-	import SpecificMetas from "$lib/components/seo/specific-metas.svelte";
-	import { specificGeneralMetas } from "$lib/utils/metas.utils";
+	import SpecificMetas from '$lib/components/seo/specific-metas.svelte';
+	export let data;
 </script>
 
 <svelte:head>
-	<SpecificMetas metas={specificGeneralMetas} />
+	<SpecificMetas
+		origin={data.url.origin}
+		title="Administración"
+		description="Panel de administración de la aplicación"
+	/>
 </svelte:head>
 
 <aside class="admin-aside">
@@ -14,7 +18,7 @@
 </aside>
 
 <div class="admin-page-container">
-	<slot/>
+	<slot />
 </div>
 
 <style>
