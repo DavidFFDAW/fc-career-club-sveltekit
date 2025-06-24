@@ -11,52 +11,39 @@
 
 <div class="w1 form-item app-form-item">
 	<label class="input-item label-input-container">
-		<span class="label">{label}</span>
-		<div class="w1 flex acenter nogap responsive">
-			<input type="text" class="slug-input" bind:value {...$$restProps} {name} />
-			<input type="hidden" name="{name}-slug" value={slug} />
-			<span class="slug-preview">{slug}</span>
+		<div class="w1 labeled flex between acenter gap-smaller">
+			<span class="label">
+				{label}
+				{#if $$restProps.required}
+					<strong class="required"> * </strong>
+				{/if}
+			</span>
+			<p class="slug-value non-visible-scroll">
+				<span class="slug-preview">{slug}</span>
+			</p>
 		</div>
+
+		<input type="text" class="slug-input" bind:value {...$$restProps} {name} />
+		<input type="hidden" name="slug-{name}" value={slug} />
 	</label>
 </div>
 
 <style>
-	.slug-input {
-		max-height: 40px;
-		height: 40px;
-		border-radius: 4px 0 0 4px;
-		border-right: none;
-	}
-	.slug-preview {
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		flex: 1;
-		font-size: 0.875rem;
-		color: #888;
+	.slug-value {
+		width: 100%;
+		max-width: 160px;
 		display: block;
-		padding: 10px 1rem;
-		border: 1px solid #ccc;
-		border-radius: 0 4px 4px 0;
-		background-color: #eee;
-		min-height: 40px;
-		max-height: 40px;
+		font-weight: light;
+		font-size: 12px;
+		color: #888;
+		overflow: scroll;
+		white-space: nowrap;
+		padding: 0 5px;
+		text-align: right;
 	}
-
 	@media only screen and (max-width: 768px) {
-		.slug-input {
-			width: 100%;
-			border-radius: 4px 4px 0 0;
-			border-right: 1px solid var(--accent);
-			overflow: hidden;
-			border-bottom: none;
-			min-height: unset;
-		}
-		.slug-preview {
-			width: 100%;
-			max-width: 100%;
-			border-radius: 0 0 4px 4px;
-			min-height: unset;
+		.slug-value {
+			max-width: 200px;
 		}
 	}
 </style>

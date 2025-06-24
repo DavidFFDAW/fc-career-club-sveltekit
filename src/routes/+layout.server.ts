@@ -10,6 +10,22 @@ const getPageTitle = (pathname: string): string => {
 	return lastPart.replace(/-/g, ' ').charAt(0).toUpperCase() + lastPart.slice(1);
 }
 
+const getBreadcrumbs = (pathname: string): { name: string, href: string }[] => {
+	const pathSegments = pathname
+		.split("/")
+		.filter(Boolean)
+		.map((segment, index, array) => {
+			const href = "/" + array.slice(0, index + 1).join("/");
+			const name = segment.replace(/-/g, " ");
+			return { name, href };
+		});
+	
+	return [
+		{ name: 'home', href: '/' },
+		...pathSegments
+	];
+}
+
 export const load = async ({ url, locals, params }) => {
 	const pathRoute = url.pathname === '/' ? 'home' : url.pathname.slice(1).replace(/\//g, '-');
 	const isPageAdmin = url.pathname.startsWith('/admin');
@@ -32,6 +48,7 @@ export const load = async ({ url, locals, params }) => {
 			route: pathRoute,
 		},
 		page: {
+			breadcrumbs: getBreadcrumbs(url.pathname),
 			isBlogPost,
 			isPageAdmin,
 		},

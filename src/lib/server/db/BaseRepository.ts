@@ -57,8 +57,16 @@ export class BaseRepository<
 		return this.model.create({ data });
 	}
 
+	bulkCreate(data: CreateInput[]): Promise<T[]> {
+		return this.model.createMany({ data });
+	}
+
 	update(where: WhereUniqueInput, data: UpdateInput): Promise<T> {
 		return this.model.update({ where, data });
+	}
+
+	bulkUpdate(where: WhereUniqueInput, data: UpdateInput): Promise<T[]> {
+		return this.model.updateMany({ where, data });
 	}
 
 	delete(where: WhereUniqueInput): Promise<T> {

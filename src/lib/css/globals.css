@@ -4,10 +4,13 @@
 *,
 *::after,
 *::before {
+	box-sizing: border-box;
+}
+* {
 	margin: 0;
 	padding: 0;
-	box-sizing: border-box;
 	transition: all 0.3s ease-in-out;
+	scroll-behavior: smooth;
 }
 
 body {
@@ -237,11 +240,38 @@ input[type='button'],
 	text-transform: uppercase;
 }
 
+.btn.cta,
 button.cta,
 input[type='submit'].cta,
-.btn.cta {
+.btn.btn-primary,
+button.btn-primary,
+input[type='submit'].btn-primary {
 	background-color: var(--color);
 	color: #fff;
+}
+
+button:disabled,
+input[type='submit']:disabled,
+input[type='reset']:disabled,
+input[type='button']:disabled,
+.btn:disabled,
+.btn.disabled {
+	opacity: .6;
+	background-color: #ddd;
+	color: #999;
+	cursor: not-allowed;
+}
+
+
+button.unbutton,
+input[type='submit'].unbutton,
+input[type='reset'].unbutton,
+input[type='button'].unbutton,
+.btn.unbutton,
+.btn.unbutton {
+	background-color: transparent;
+	color: #333;
+	border: none;
 }
 
 form .form-group {
@@ -333,6 +363,11 @@ form .submit-buttons-container {
 	gap: 1rem;
 }
 
+.comfortaa {
+	font-family: 'Comfortaa', sans-serif;
+	font-optical-sizing: auto;
+	font-style: normal;
+}
 .nunito {
 	font-family: 'Nunito', sans-serif;
 	font-optical-sizing: auto;
@@ -349,7 +384,7 @@ html,
 body {
 	margin: 0;
 	padding: 0;
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'Comfortaa', sans-serif;
 	background-color: var(--white-light);
 	font-size: 16px;
 	line-height: 1.4;
@@ -406,8 +441,8 @@ main.admin-page {
 
 button,
 .btn {
-	background-color: var(--accent);
-	color: var(--white-light);
+	background-color: #eee;
+	color: #333;
 	border: none;
 	outline: none;
 	padding: 0.5rem 1rem;
@@ -471,6 +506,9 @@ button,
 	width: 100%;
 	display: block;
 }
+.form-item.app-form-item.flex {
+	display: flex;
+}
 .form-item label {
 	display: block;
 	font-size: 1rem;
@@ -495,7 +533,7 @@ button,
 input,
 textarea,
 select {
-	border: 1px solid var(--accent);
+	border: 1px solid #ddd;
 	padding: 0.5rem 1rem;
 	border-radius: 5px;
 	font-size: 1rem;
@@ -504,6 +542,20 @@ select {
 	transition: all 0.3s ease-in-out;
 	resize: vertical;
 }
+input:focus,
+textarea:focus,
+select:focus {
+	border-color: var(--accent);
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.06);
+}
+
+input {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
+
 input.checkbox,
 input.radio {
 	position: absolute;
@@ -551,4 +603,9 @@ input.checkbox:checked + .inner {
 }
 .box .box-content {
 	padding: 1rem 0;
+}
+
+
+.non-visible-scroll::-webkit-scrollbar {
+	display: none;
 }

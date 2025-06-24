@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Breadcrumbs from '$lib/components/seo/breadcrumbs.svelte';
 	import SpecificMetas from '$lib/components/seo/specific-metas.svelte';
 	export let data;
 </script>
@@ -18,6 +19,10 @@
 </aside>
 
 <div class="admin-page-container">
+	<header class="admin-breadcrumbs">
+		<Breadcrumbs breadcrumbs={data.page.breadcrumbs} />
+	</header>
+	
 	<slot />
 </div>
 
@@ -43,4 +48,16 @@
 		margin-left: calc(var(--admin-aside-width) - 1rem);
 		padding: 1rem;
 	}
-</style>
+	
+	@media only screen and (max-width: 768px) {
+		.admin-aside {
+			display: none;
+		}
+		.admin-page-container {
+			margin-left: 0;
+		}
+		.admin-page-container {
+			padding: 0;
+		}
+	}
+	</style>

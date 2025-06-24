@@ -25,8 +25,8 @@
 	</svg>
 
 	<div class="player-shirt-name-container">
-		<p class="player-shirt-name">{name}</p>
-		<p class="player-shirt-number">{number}</p>
+		<p class="player-shirt-name comfortaa">{name}</p>
+		<p class="player-shirt-number montserrat">{number}</p>
 	</div>
 </div>
 
@@ -60,15 +60,16 @@
 		left: 50%;
 		transform: translateX(-50%) scale(0.8, 1.05);
 		font-size: 13px;
-		font-weight: 600;
+		font-weight: 800;
 		color: #000;
 		text-transform: uppercase;
+		letter-spacing: .6px;
 	}
 	.player-shirt-name-container .player-shirt-number {
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%) scaleY(1.5);
-		font-size: 3.5em;
+		font-size: 3rem;
 		font-weight: 700;
 		color: #000;
 	}

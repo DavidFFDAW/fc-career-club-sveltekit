@@ -359,22 +359,29 @@
 		flex-wrap: wrap;
 	}
 
+	.grid.responsive-nowrap,
 	.flex.responsive-nowrap {
 		flex-wrap: nowrap;
 	}
+	.grid.responsive-gap,
 	.flex.responsive-gap {
-		gap: 10px;
+		gap: 35px;
 	}
+	.grid.responsive-no-gap,
 	.flex.responsive-no-gap {
 		gap: 0;
 	}
+	.grid.responsive-gap-5,
 	.flex.responsive-gap-5 {
 		gap: 5px;
 	}
+	.grid.responsive-gap-10,
 	.flex.responsive-gap-10,
+	.grid.responsive-gap-small,
 	.flex.responsive-gap-small {
 		gap: 10px;
 	}
+	.grid.responsive-gap-15,
 	.flex.responsive-gap-15 {
 		gap: 15px;
 	}

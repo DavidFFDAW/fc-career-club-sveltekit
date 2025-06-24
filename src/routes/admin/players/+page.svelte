@@ -4,40 +4,81 @@
 	import PlayerShirt from '$lib/components/players/player-shirt.svelte';
 	import NumberUtils from '$lib/utils/number.utils';
 	import AppForm from '$lib/components/forms/app-form.svelte';
+	import type { SlugifiedPlayer } from '$lib/types/interfaces.js';
+	import { fade } from 'svelte/transition';
 
-	let playerData: players = {
+	let showUpsert: boolean = false;
+	let playerData: SlugifiedPlayer = {
 		name: '',
 		number: 0,
 		overall: 0,
 		age: 0,
 		position: '',
 		role: '',
-		salary: 0
-	} as players;
+		salary: 0,
+		shirt_name: '',
+		slug: '',
+		country: '',
+		price: 0,
+		price_percentage: 0,
+		termination_clause: 0,
+		status: 'active',
+		overall_increment: 0
+	} as SlugifiedPlayer;
 	export let data;
 	export let form: { error?: string } | undefined = undefined;
 </script>
 
 <div class="page-players-container">
-	<h1>Administración de jugadores</h1>
-
 	<header class="admin-players-header-box down">
-		<AppForm>
-			<PlayerForm bind:playerData />
-
-			{#if form && form.error}
-				<div class="error-message">
-					<p>{form.error}</p>
+		{#if showUpsert}
+			<div transition:fade class="w1">
+				<div class="w1 flex end acenter">
+					<button
+						type="button"
+						class="btn btn-secondary unbutton"
+						on:click={() => (showUpsert = !showUpsert)}
+						aria-label="Toggle player form"
+					>
+						<i class="bi bi-x-circle"></i>
+					</button>
 				</div>
-			{/if}
+				<AppForm>
+					<PlayerForm bind:playerData />
 
-			<div class="submit-buttons-container">
-				<button type="submit" class="btn btn-primary icon icon-button">
+					{#if form && form.error}
+						<div class="error-message">
+							<p>{form.error}</p>
+						</div>
+					{/if}
+
+					<div class="submit-buttons-container">
+						<button type="submit" class="btn cta icon icon-button">
+							<i class="bi bi-plus-circle"></i>
+							<span>Crear jugador</span>
+						</button>
+					</div>
+				</AppForm>
+			</div>
+		{/if}
+
+		{#if !showUpsert}
+			<div class="w1 buttons-container flex between acenter">
+				<a href="players/import" class="btn icon icon-button">
+					<i class="bi bi-file-earmark-arrow-down"></i>
+					<span>Importar jugadores</span>
+				</a>
+
+				<button
+					type="button"
+					class="btn cta icon icon-button"
+					on:click={() => (showUpsert = !showUpsert)}
+				>
 					<i class="bi bi-plus-circle"></i>
-					<span>Crear jugador</span>
+					<span>{showUpsert ? 'Cancelar' : 'Añadir jugador'}</span>
 				</button>
 			</div>
-		</AppForm>
+		{/if}
 	</header>
 
 	<div class="list-container down">
@@ -45,7 +86,7 @@
 			<ul class="players-list admin-list">
 				{#each data.players as player}
 					<li class="w1 player-item admin-list-item">
-						<PlayerShirt name={player.name} number={player.number} />
+						<PlayerShirt name={player.shirt_name} number={player.number} />
 						<h4>{player.name}</h4>
 						<p class="player-number">#{player.age}</p>
 						<p class="player-position">{player.position}</p>

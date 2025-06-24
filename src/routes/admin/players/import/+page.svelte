@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Input from '$lib/components/forms/input.svelte';
 	import PlayerForm from '$lib/components/players/player-form.svelte';
 	import type { SlugifiedPlayer } from '$lib/types/interfaces';
 	import { slugify } from '$lib/utils/general.utils';
@@ -86,15 +85,19 @@
 	</div>
 </div>
 
-{#if csvData.length > 0}
-	<ul class="importing-players-datas w1 flex column start astart gap-medium">
-		{#each csvData as player}
-			<li class="w1 box player-box-item">
-				<PlayerForm playerData={player} multiple />
-			</li>
-		{/each}
-	</ul>
-{/if}
+<form action="" method="post" class="down w1 import-form flex column start astart gap-medium">
+	<button type="submit" class="btn btn-primary" disabled={csvData.length == 0}>Importar jugadores</button>
+	{#if csvData.length > 0}
+		<ul class="importing-players-datas w1 flex column start astart gap-medium">
+			{#each csvData as player}
+				<li class="w1 box player-box-item">
+					<PlayerForm playerData={player} multiple />
+				</li>
+			{/each}
+		</ul>
+	{/if}
+	<button type="submit" class="btn btn-primary" disabled={csvData.length == 0}>Importar jugadores</button>
+</form>
 
 <style>
 	.dropzone {
@@ -108,6 +111,8 @@
 		text-align: center;
 		background-color: #f9f9f9;
 		cursor: pointer;
+		display: grid;
+		place-items: center;
 	}
 
 	.dropzone input[type='file'] {

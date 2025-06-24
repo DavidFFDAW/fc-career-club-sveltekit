@@ -5,62 +5,72 @@
 	import { playerPositions, playerRoles } from '$lib/constants/players';
 	import type { SlugifiedPlayer } from '$lib/types/interfaces';
 	import SlugInput from '../forms/slug-input.svelte';
+	import Fieldset from '../forms/fieldset.svelte';
 
 	export let playerData: SlugifiedPlayer;
 	export let multiple: boolean = false;
 </script>
 
-<div
-	class="w1 flex start astart gap-medium responsive player-form-container responsive-justify-center responsive-align-center"
->
-	<PlayerShirt name={playerData.shirt_name} number={playerData.number} width={140} />
+<div class="w1 flex column gap">
+	<div
+		class="w1 flex start astart gap-medium responsive player-form-container responsive-justify-center responsive-align-center"
+	>
+		<PlayerShirt name={playerData.shirt_name} number={playerData.number} width={140} />
 
-	<div class="w1 player-form-fields-container">
-		<fieldset>
-			<legend>Información del jugador</legend>
-			<div class="player-form-container w1 flex column gap-smaller">
-				<div class="w1 flex start acenter names-form responsive gap-smaller">
-					<SlugInput
-						label="Nombre"
-						name={multiple ? 'name[]' : 'name'}
-						placeholder="Player Name"
-						bind:value={playerData.name}
-					/>
-					<Input
-						label="Nombre de camiseta"
-						name={multiple ? 'shirt_name[]' : 'shirt_name'}
-						type="text"
-						placeholder="Player Shirt Name"
-						bind:value={playerData.shirt_name}
-					/>
+		<div class="w1 player-form-fields-container">
+			<Fieldset legend="Información">
+				<div class="player-form-container w1 flex column gap-smaller">
+					<div class="w1 grid two-column-grid acenter names-form responsive gap-smaller">
+						<SlugInput
+							label="Nombre"
+							name={multiple ? 'name[]' : 'name'}
+							placeholder="Player Name"
+							bind:value={playerData.name}
+							maxlength="100"
+						/>
+						<Input
+							label="Nombre de camiseta"
+							name={multiple ? 'shirt_name[]' : 'shirt_name'}
+							type="text"
+							placeholder="Player Shirt Name"
+							bind:value={playerData.shirt_name}
+							maxlength="50"
+						/>
+					</div>
+
+					<div class="w1 grid two-column-grid acenter gap-small">
+						<Input
+							label="Dorsal"
+							name={multiple ? 'number[]' : 'number'}
+							type="number"
+							placeholder="Player Number"
+							bind:value={playerData.number}
+							min="1"
+							max="50"
+						/>
+						<Input
+							label="Edad"
+							name={multiple ? 'age[]' : 'age'}
+							type="number"
+							placeholder="Player Age"
+							bind:value={playerData.age}
+							min="16"
+							max="50"
+						/>
+					</div>
 				</div>
+			</Fieldset>
+		</div>
+	</div>
 
-				<div class="w1 grid two-column-grid gap-smaller">
-					<Input
-						label="Dorsal"
-						name={multiple ? 'number[]' : 'number'}
-						type="number"
-						placeholder="Player Number"
-						bind:value={playerData.number}
-						min="1"
-						max="50"
-					/>
-					<Input
-						label="Edad"
-						name={multiple ? 'age[]' : 'age'}
-						type="number"
-						placeholder="Player Age"
-						bind:value={playerData.age}
-					/>
-				</div>
-			</div>
-
-			<div class="form-group">
+	<div class="w1 grid two-column-grid gap-small responsive responsive-gap">
+		<Fieldset legend="Extras">
+			<div class="w1 flex start acenter gap-smaller column">
 				<Input
 					label="Posición"
 					name={multiple ? 'position[]' : 'position'}
 					type="select"
-					maxlength="4"
+					maxlength="5"
 					placeholder="Player Position"
 					bind:value={playerData.position}
 					options={playerPositions.map((position) => ({
@@ -72,6 +82,7 @@
 					label="Rol"
 					name={multiple ? 'role[]' : 'role'}
 					type="select"
+					maxlength="50"
 					placeholder="Player Role"
 					bind:value={playerData.role}
 					options={playerRoles.map((role) => ({
@@ -81,50 +92,47 @@
 				/>
 
 				<Input
-					label="País"
-					name={multiple ? 'country[]' : 'country'}
-					type="text"
-					placeholder="Player Country"
-					bind:value={playerData.country}
-				/>
-
-				<Input
 					label="Estado"
 					name={multiple ? 'status[]' : 'status'}
 					type="text"
 					placeholder="Player Status"
 					bind:value={playerData.status}
+					maxlength="150"
 				/>
 			</div>
-		</fieldset>
+		</Fieldset>
+
+		<Fieldset legend="Media y país">
+			<div class="w1 flex start acenter gap-smaller column">
+				<Input
+					label="Media"
+					name={multiple ? 'overall[]' : 'overall'}
+					type="number"
+					placeholder="Overall Rating"
+					bind:value={playerData.overall}
+				/>
+
+				<Input
+					label="Incremento"
+					name={multiple ? 'overall_increment[]' : 'overall_increment'}
+					type="number"
+					placeholder="Overall Increment"
+					bind:value={playerData.overall_increment as number | undefined}
+				/>
+
+				<Input
+					label="País"
+					name={multiple ? 'country[]' : 'country'}
+					type="text"
+					placeholder="Player Country"
+					bind:value={playerData.country}
+					maxlength="50"
+				/>
+			</div>
+		</Fieldset>
 	</div>
-</div>
 
-<div class="w1 non-column-block flex column start astart gap-smaller">
-	<fieldset class="w1">
-		<legend>Media</legend>
-		<div class="w1 flex start acenter gap-smaller responsive">
-			<Input
-				label="Media"
-				name={multiple ? 'overall[]' : 'overall'}
-				type="number"
-				placeholder="Overall Rating"
-				bind:value={playerData.overall}
-			/>
-
-			<Input
-				label="Incremento"
-				name={multiple ? 'overall_increment[]' : 'overall_increment'}
-				type="number"
-				placeholder="Overall Increment"
-				bind:value={playerData.overall_increment as number | undefined}
-				min="0"
-			/>
-		</div>
-	</fieldset>
-
-	<fieldset class="w1">
-		<legend>Economía del jugador</legend>
+	<Fieldset legend="Finanzas">
 		<div class="form-group">
 			<PriceInput
 				label="Salario"
@@ -152,10 +160,9 @@
 				type="number"
 				placeholder="Player Price Percentage"
 				bind:value={playerData.price_percentage as number | undefined}
-				min="0"
 			/>
 		</div>
-	</fieldset>
+	</Fieldset>
 </div>
 
 <style>
@@ -164,26 +171,13 @@
 		flex-direction: column;
 		gap: 1rem;
 	}
-	fieldset {
-		border: 1px solid #ccc;
-		border-radius: 4px;
-		padding: 1rem;
-	}
 
-	fieldset legend {
-		font-weight: bold;
-		color: #333;
-	}
-
-	fieldset .form-group {
-		margin-top: 10px;
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-		gap: 15px 10px;
+	.grid-span {
+		grid-column: span 2;
 	}
 
 	@media only screen and (max-width: 768px) {
-		fieldset .form-group {
+		fieldset {
 			grid-template-columns: 1fr;
 		}
 	}
