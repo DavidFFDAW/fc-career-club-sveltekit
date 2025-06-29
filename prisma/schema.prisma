@@ -34,7 +34,7 @@ model posts {
     id               Int       @id @default(autoincrement())
     title            String    @db.VarChar(255)
     slug             String    @unique(map: "slug") @db.VarChar(255)
-	excerpt          String?   @db.Text
+    excerpt          String?   @db.Text
     content          String    @db.Text
     author           String    @db.VarChar(100)
     type             String    @default("post") @db.VarChar(50)
@@ -63,4 +63,16 @@ model titles {
     updated_at  DateTime? @updatedAt @db.DateTime(0)
 
     @@map("titles")
+}
+
+model Scouting {
+    id                     Int       @id @default(autoincrement())
+    player_name            String    @db.VarChar(100)
+    player_supposed_price  Int?      @db.Int
+    player_supposed_salary Int?      @db.Int
+    player_interest_type   String?   @db.VarChar(50)
+    created_at             DateTime  @default(now()) @db.DateTime(0)
+    updated_at             DateTime? @updatedAt @db.DateTime(0)
+
+    @@map("scouting")
 }

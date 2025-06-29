@@ -13,8 +13,22 @@
 </svelte:head>
 
 <aside class="admin-aside">
-	<nav class="admin-aside-navigation">
+	<nav class="admin-aside-navigation w1 flex column gap-5 start aend">
 		<!-- <Navigation /> -->
+		<ul class="w1 admin-aside-link-list flex column gap-5 start aend">
+			<li class="admin-aside-link-item">
+				<a href="/admin/players">Jugadores</a>
+			</li>
+			<li class="admin-aside-link-item">
+				<a href="/admin/scouting">Ojear jugadores</a>
+			</li>
+			<li class="admin-aside-link-item">
+				<a href="/admin/announcements">Anuncios oficiales</a>
+			</li>
+			<li class="admin-aside-link-item">
+				<a href="/admin/blog">Posts del club</a>
+			</li>
+		</ul>
 	</nav>
 </aside>
 
@@ -22,7 +36,7 @@
 	<header class="admin-breadcrumbs">
 		<Breadcrumbs breadcrumbs={data.page.breadcrumbs} />
 	</header>
-	
+
 	<slot />
 </div>
 
@@ -34,10 +48,10 @@
 		position: fixed;
 		top: 65px;
 		left: 0;
-		bottom: 65px;
+		bottom: 5px;
 		border-radius: 0 12px 12px 0;
 		background: #fff;
-		box-shadow: 0 0px 5px rgba(0, 0, 0, 0.1);
+		box-shadow: 0 0px 5px rgba(0, 0, 0, 0.3);
 		padding: 1rem;
 		width: var(--admin-aside-width);
 		z-index: 10;
@@ -46,9 +60,9 @@
 	}
 	.admin-page-container {
 		margin-left: calc(var(--admin-aside-width) - 1rem);
-		padding: 1rem;
+		padding: 1rem 1rem 4rem 1rem;
 	}
-	
+
 	@media only screen and (max-width: 768px) {
 		.admin-aside {
 			display: none;
@@ -60,4 +74,4 @@
 			padding: 0;
 		}
 	}
-	</style>
+</style>

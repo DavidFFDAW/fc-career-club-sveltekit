@@ -17,14 +17,21 @@
 	<link rel="icon" href="/favicon.ico" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="canonical" href={data.url.canonical} />
-	
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+		rel="stylesheet"
+	/>
 
 	<CommonMetas canonical={data.url.canonical} robots={data.robots} />
 	{#if !data.page.isBlogPost}
-		<SpecificMetas origin={data.url.origin} title={data.title} description="Mandarinos - Tu club de fútbol de confianza y cada día el de más gente." />
+		<SpecificMetas
+			origin={data.url.origin}
+			title={data.title}
+			description="Mandarinos - Tu club de fútbol de confianza y cada día el de más gente."
+		/>
 	{/if}
 </svelte:head>
 
@@ -42,9 +49,9 @@
 		</div>
 	{/key}
 
-	<footer class="app-footer flex">
+	<!-- <footer class="app-footer flex">
 		<p>Mandarinos &copy; {year}</p>
-	</footer>
+	</footer> -->
 </main>
 
 <style lang="css">
@@ -67,7 +74,6 @@
 		width: 100%;
 		padding: 2rem 1rem 6rem 1rem;
 	}
-
 
 	footer {
 		position: absolute;

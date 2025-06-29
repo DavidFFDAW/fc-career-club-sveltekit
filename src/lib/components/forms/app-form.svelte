@@ -4,7 +4,12 @@
 	export let action: string | undefined = undefined;
 </script>
 
-<form method="post" use:enhance action={action ? `/?${action}` : ''} class="app-form">
+<form
+	method="post"
+	use:enhance
+	action={action ? `/?${action}` : ''}
+	class={`${$$restProps.class} app-form`}
+>
 	<slot />
 
 	{#if form && form.error}
