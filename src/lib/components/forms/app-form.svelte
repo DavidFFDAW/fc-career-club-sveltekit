@@ -1,22 +1,23 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	export let form: { error?: string } | undefined = undefined;
+	import { customEnhance } from './custom.enhance';
+
+	export let afterSubmit: () => void = () => {};
 	export let action: string | undefined = undefined;
+	export let updateId: number | string | undefined = undefined;
 </script>
 
 <form
 	method="post"
-	use:enhance
-	action={action ? `/?${action}` : ''}
+	use:enhance={customEnhance(afterSubmit)}
+	action={action ? `?/${action}` : ''}
 	class={`${$$restProps.class} app-form`}
 >
-	<slot />
-
-	{#if form && form.error}
-		<div class="error-message">
-			<p>{form.error}</p>
-		</div>
+	{#if updateId}
+		<input type="hidden" name="_update_id" value={updateId} />
 	{/if}
+
+	<slot />
 </form>
 
 <style>

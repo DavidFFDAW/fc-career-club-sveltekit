@@ -445,7 +445,7 @@ button,
 	color: #333;
 	border: none;
 	outline: none;
-	padding: 0.5rem 1rem;
+	padding: 8px 20px;
 	border-radius: 5px;
 	cursor: pointer;
 	font-size: 1rem;
@@ -454,13 +454,16 @@ button,
 }
 .rounded,
 .btn.rounded {
-	border-radius: 10px;
+	border-radius: 20px;
 }
 .btn.icon,
 .btn.iconed {
 	display: flex;
 	align-items: center;
 	gap: 0.6rem;
+}
+.btn.icon.center {
+	justify-content: center;
 }
 .btn.small {
 	padding: 0.5rem 0.75rem;

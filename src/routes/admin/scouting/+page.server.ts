@@ -20,7 +20,7 @@ export const load = async () => {
 };
 
 export const actions = {
-    default: async ({ request }) => {
+    create: async ({ request }) => {
         const formData = await request.formData();
         const scoutingRepo = new ScoutingRepository();
 
@@ -28,8 +28,6 @@ export const actions = {
             const { error, message } = Helpers.checkRequiredFields(formData, [
                 'player_name',
                 'interest_type',
-                'stimated_price',
-                'stimated_salary',
             ]);
             if (error) return Helpers.error(message, 400);
 
@@ -47,5 +45,39 @@ export const actions = {
             console.error('Error fetching scouting player:', error);
             return Helpers.error('Error fetching scouting player', 500);
         }
-    },
+	},
+	update: async ({ request }) => { 
+		const formData = await request.formData();
+        const scoutingRepo = new ScoutingRepository();
+
+        try {
+            const { error, message } = Helpers.checkRequiredFields(formData, [
+                'player_name',
+                'interest_type',
+            ]);
+			if (error) return Helpers.error(message, 400);
+			const playerId = Helpers.getUpdatingId(formData);
+
+            const scoutingPlayer = {
+                player_name: formData.get('player_name') as string,
+                player_interest_type: formData.get('interest_type') as string,
+                player_supposed_price: parseFloat(formData.get('stimated_price') as string),
+                player_supposed_salary: parseFloat(formData.get('stimated_salary') as string),
+			} as Prisma.ScoutingCreateInput;
+			console.log('scoutingPlayer', {
+				...scoutingPlayer,
+				id: playerId	
+			});
+			
+
+			const updatedPlayer = await scoutingRepo.update({
+				id: playerId,
+			}, scoutingPlayer);
+            if (!updatedPlayer) return Helpers.error('Error creating scouting player', 500);
+            return Helpers.success('Se ha creado el jugador ojeado correctamente', 201);
+        } catch (error) {
+            console.error('Error fetching scouting player:', error);
+            return Helpers.error('Error fetching scouting player', 500);
+        }
+	}
 };

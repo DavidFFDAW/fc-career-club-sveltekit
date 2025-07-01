@@ -18,6 +18,14 @@ export const Helpers = {
 			return { error: true, message: `Faltan campos requeridos: ${missingFields.join(', ')}` };
 		return { error: false, message: '' };
 	},
+	getUpdatingId: (formData: FormData) => {
+		const updateId = Number(formData.get('_update_id'));
+		if (!updateId || isNaN(updateId) || !formData.has('_update_id')) {
+			throw new Error('Formato de ID de actualización inválido');
+		}
+		
+		return updateId;
+	},
 	tryCatch: async (errorMessage: string, fn: () => Promise<any>) => {
 		try {
 			return await fn();

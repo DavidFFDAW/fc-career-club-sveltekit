@@ -31,6 +31,7 @@
 		<li><a href="/admin/reports">View Reports</a></li>
 		<li><a href="/admin/logs">System Logs</a></li>
 		<li><a href="/admin/help">Help & Support</a></li>
+		<li><a href="/admin/scouting">Ojeados</a></li>
 	</ul>
 	{value}
 </div>
