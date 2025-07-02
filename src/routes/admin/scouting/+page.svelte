@@ -104,20 +104,6 @@
 					placeholder="200.000"
 				/>
 			</div>
-
-			<div class="w1 flex between gap-5 responsive down">
-				<button
-					type="reset"
-					class="btn reset rounded responsive-w1 tcenter"
-					on:click={() => resetForm()}
-				>
-					<span class="text">Cancelar</span>
-				</button>
-				<button type="submit" class="btn icon cta rounded responsive-w1 center">
-					<i class="bi bi-person"></i>
-					<span class="text">{playerData.id !== 0 ? 'Editar jugador' : 'Añadir jugador'}</span>
-				</button>
-			</div>
 		</AppForm>
 	</Dialog>
 

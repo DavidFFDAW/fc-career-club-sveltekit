@@ -53,6 +53,7 @@ export const load = async ({ url, locals, params }) => {
 			isPageAdmin,
 		},
 		title: title,
+		user: locals.user || null,
 		isUserAdmin: Boolean(locals.user),
 		robots: isPageAdmin ? 'noindex, nofollow' : 'index, follow',
 	};

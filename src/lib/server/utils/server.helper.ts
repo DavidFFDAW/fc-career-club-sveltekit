@@ -20,6 +20,8 @@ export const Helpers = {
 	},
 	getUpdatingId: (formData: FormData) => {
 		const updateId = Number(formData.get('_update_id'));
+		console.log('Update ID:', updateId);
+		
 		if (!updateId || isNaN(updateId) || !formData.has('_update_id')) {
 			throw new Error('Formato de ID de actualización inválido');
 		}

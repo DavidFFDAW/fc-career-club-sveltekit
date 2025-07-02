@@ -7,11 +7,20 @@ export type CustomEnhanceAfterSubmit = (args: any) => void | null | undefined;
 export const customEnhance = (afterSubmit: CustomEnhanceAfterSubmit): SubmitFunction => {
 	const submitForm: SubmitFunction = ({ cancel }) => {
 		const buttonInitiator = document.activeElement as HTMLButtonElement;
+		const action = buttonInitiator.formAction;
 		if (buttonInitiator instanceof HTMLButtonElement) buttonInitiator.disabled = true;
 		const shouldAskConfirmation = buttonInitiator.dataset.confirm === 'true';
 		const shouldContinue = shouldAskConfirmation
 			? confirm('¿Estás seguro de que deseas hacer esto?')
 			: true;
+		
+		console.log({
+			action,
+			shouldAskConfirmation,
+			shouldContinue,
+			buttonInitiator
+		});
+		
 
 		if (!shouldContinue) {
 			buttonInitiator.disabled = false;

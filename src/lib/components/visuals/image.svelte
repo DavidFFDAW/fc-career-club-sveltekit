@@ -1,7 +1,7 @@
 <script lang='ts'>
 	export let caption: string = '';
 	let width = $$restProps.width || 120;
-	const appFallback: string = `/images/default-plant.jpg`;
+	const appFallback: string = `/images/mandarinos-announcement.jpg`;
 	export let fallback: string = `https://placehold.co/${width}x${width}/f3f4f6/000000?text=Image+not+found`;
 
 	const onError = (e: Event) => {

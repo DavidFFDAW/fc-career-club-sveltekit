@@ -512,13 +512,21 @@ button,
 .form-item.app-form-item.flex {
 	display: flex;
 }
-.form-item label {
+.form-item label,
+.form-item span.label {
 	display: block;
 	font-size: 1rem;
 	font-weight: 600;
 	color: var(--accent);
 }
-.form-item label .required {
+.form-item label.unlabel {
+	color: #000;
+	font-size: 16px;
+	font-weight: 400;
+
+}
+.form-item label .required,
+.form-item span.label .required {
 	color: #d32f2f;
 	font-weight: 800;
 }
@@ -575,6 +583,31 @@ input.radio:checked + .inner,
 input.checkbox:checked + .inner {
 	background-color: transparent;
 	border: 2px solid var(--accent);
+}
+
+.form-item.radio-check-item label {
+	position: relative;
+}
+.form-item.radio-check-item input {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+.form-item.radio-check-item input + span {
+	display: inline-block;
+	padding: 4px 15px;
+	border-radius: 20px;
+	background-color: transparent;
+	border: 1px solid var(--accent);
+}
+.form-item.radio-check-item input:hover + span,
+.form-item.radio-check-item input:checked + span {
+	background-color: var(--accent);
+	color: #fff;
 }
 
 /* BOX */
