@@ -6,7 +6,8 @@ import type { ActionResult, SubmitFunction } from '@sveltejs/kit';
 export type CustomEnhanceAfterSubmit = (args: any) => void | null | undefined;
 
 export const customEnhance = (afterSubmit: CustomEnhanceAfterSubmit): SubmitFunction => {
-	const submitForm: SubmitFunction = ({ cancel }) => {
+	const submitForm: SubmitFunction = ({ cancel, formElement }) => {
+        const redirect = formElement.dataset.redirect;
 		const buttonInitiator = document.activeElement as HTMLButtonElement;
 		if (buttonInitiator instanceof HTMLButtonElement) buttonInitiator.disabled = true;
 		const shouldAskConfirmation = buttonInitiator.dataset.confirm === 'true';
@@ -40,7 +41,13 @@ export const customEnhance = (afterSubmit: CustomEnhanceAfterSubmit): SubmitFunc
 				await update({ reset: true });
 				await invalidateAll();
 				buttonInitiator.disabled = false;
-				return Toast.success(successMessage);
+				Toast.success(successMessage);
+
+                if (redirect) {
+                    setTimeout(() => {
+                        window.location.href = redirect;
+                    }, 500);
+                }
 			}
 		};
 	};

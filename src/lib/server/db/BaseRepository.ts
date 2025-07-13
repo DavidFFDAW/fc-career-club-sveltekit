@@ -29,6 +29,13 @@ export class BaseRepository<
 		return this.model.findMany(args);
 	}
 
+	getRow(args?: FindManyArgs): Promise<T> {
+		return this.model.findFirst({
+            ...args,
+            take: 1
+        });
+	}
+
 	getBySlug(slug: string): Promise<T | null> {
 		return this.model.findUnique({
 			where: { slug }

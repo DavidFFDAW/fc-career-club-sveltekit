@@ -1,4 +1,4 @@
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 
 export const Helpers = {
 	success: (message: string, status: number = 200) => {
@@ -9,6 +9,9 @@ export const Helpers = {
 	},
 	error: (message: string, code?: number) => {
 		return fail(code || 500, { message, error: message });
+	},
+    redirect: (url: string, status: number = 302) => {
+        throw redirect(status, url);
 	},
 	checkRequiredFields: (formData: FormData, requiredFields: string[]) => {
 		const missingFields = requiredFields.filter(

@@ -6,6 +6,7 @@
 	export let buttonText: string = 'Guardar';
 	export let afterSubmit: () => void = () => {};
 	export let action: string | undefined = undefined;
+    export let redirect: string | undefined = undefined;
 	export let updateId: number | string | undefined = undefined;
 </script>
 
@@ -13,6 +14,7 @@
 	method="post"
 	use:enhance={customEnhance(afterSubmit)}
 	action={action ? `?/${action}` : ''}
+    data-redirect={redirect ? redirect : ''}
 	class={`${$$restProps.class} app-form`}
 	enctype="multipart/form-data"
 >
