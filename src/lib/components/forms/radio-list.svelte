@@ -1,8 +1,8 @@
 <script lang="ts">
 	export let name: string;
 	export let label: string;
-	export let value: string | number | undefined = undefined;
-	export let options: { value: string; label: string }[] = [];
+	export let value: string | number | boolean | undefined = undefined;
+	export let options: { value: string | boolean | number; label: string }[] = [];
 </script>
 
 <div class="w1 form-item app-form-item radio-check-item">

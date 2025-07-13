@@ -1,4 +1,4 @@
-import { redirect } from '@sveltejs/kit';
+// import { redirect } from '@sveltejs/kit';
 
 const getPageTitle = (pathname: string): string => {
 	if (pathname === '/') return 'Club';
@@ -46,6 +46,7 @@ export const load = async ({ url, locals, params }) => {
 			origin: url.origin,
 			href: url.href,
 			route: pathRoute,
+            currentPath: `${url.origin}${url.pathname}`,
 		},
 		page: {
 			breadcrumbs: getBreadcrumbs(url.pathname),

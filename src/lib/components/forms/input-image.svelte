@@ -1,16 +1,19 @@
-<script lang='ts'>
+<script lang="ts">
+	export let label: string = 'Imagen';
 	export let value: string = 'https://placehold.co/80';
-	const randomUUID = crypto.randomUUID();
+	export let name: string = 'image';
+	export let smallText: string | undefined = undefined;
 </script>
 
 <div class="image-input-container">
 	<img width="80" height="80" src={value} alt="input preview" class="product-image" />
-	<div class="input-container form-item">
-		<label for="image-{randomUUID}">Imagen del producto</label>
-		<small>Sube una imagen del producto. Se recomienda un tamaño de 80x80px.</small>
-	<label for=""></label>
-		<input type="text" id="image-{randomUUID}" name="image" bind:value={value} accept="image/*" required />
-	</div>
+	<label class="input-container form-item">
+		<span class="label">{label}</span>
+		{#if smallText}
+			<small>{smallText}</small>
+		{/if}
+		<input type="text" {name} bind:value accept="image/*" required {...$$restProps} />
+	</label>
 </div>
 
 <style>

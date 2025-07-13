@@ -45,7 +45,7 @@
 							type="number"
 							placeholder="Player Number"
 							bind:value={playerData.number}
-							min="1"
+							min="0"
 							max="50"
 						/>
 						<Input
@@ -170,15 +170,5 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-	}
-
-	.grid-span {
-		grid-column: span 2;
-	}
-
-	@media only screen and (max-width: 768px) {
-		fieldset {
-			grid-template-columns: 1fr;
-		}
 	}
 </style>

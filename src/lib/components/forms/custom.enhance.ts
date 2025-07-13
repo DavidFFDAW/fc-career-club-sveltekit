@@ -2,32 +2,25 @@ import { invalidate, invalidateAll } from '$app/navigation';
 import Toast from '$lib/services/toast.service';
 import type { ActionResult, SubmitFunction } from '@sveltejs/kit';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type CustomEnhanceAfterSubmit = (args: any) => void | null | undefined;
 
 export const customEnhance = (afterSubmit: CustomEnhanceAfterSubmit): SubmitFunction => {
 	const submitForm: SubmitFunction = ({ cancel }) => {
 		const buttonInitiator = document.activeElement as HTMLButtonElement;
-		const action = buttonInitiator.formAction;
 		if (buttonInitiator instanceof HTMLButtonElement) buttonInitiator.disabled = true;
 		const shouldAskConfirmation = buttonInitiator.dataset.confirm === 'true';
 		const shouldContinue = shouldAskConfirmation
 			? confirm('¿Estás seguro de que deseas hacer esto?')
 			: true;
 		
-		console.log({
-			action,
-			shouldAskConfirmation,
-			shouldContinue,
-			buttonInitiator
-		});
-		
-
 		if (!shouldContinue) {
 			buttonInitiator.disabled = false;
 			cancel();
 		}
 
 		return async ({ result, update }) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const response = result as ActionResult & { data: any };
 			const hasError = result.type === 'error' || result.type === 'failure';
 			if (afterSubmit) afterSubmit({ response, hasError, update, invalidate, buttonInitiator });
@@ -40,14 +33,14 @@ export const customEnhance = (afterSubmit: CustomEnhanceAfterSubmit): SubmitFunc
 				return Toast.error(errorMessage);
 			}
 
-			const hasSuccess = !hasError && /20\d/g.test(result.status.toString());
+			const hasSuccess = !hasError && /20\d/g.test(result.status?.toString());
 
 			if (hasSuccess) {
-				// const successMessage = response.data?.message || '¡Operación exitosa!';
-				await update({ reset: false });
+				const successMessage = response.data?.message || '¡Operación exitosa!';
+				await update({ reset: true });
 				await invalidateAll();
 				buttonInitiator.disabled = false;
-				// return Toast.success(successMessage);
+				return Toast.success(successMessage);
 			}
 		};
 	};

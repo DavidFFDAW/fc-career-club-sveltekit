@@ -2,12 +2,20 @@
 	import AppForm from "$lib/components/forms/app-form.svelte";
 	import AdminNoList from "$lib/components/visuals/admin-no-list.svelte";
 	import AdminUpsertDialog from "$lib/components/visuals/admin-upsert-dialog.svelte";
-	import Button from "$lib/components/visuals/button.svelte";
+	import type { posts } from "@prisma/client";
 	import UpsertAnnouncement from "./upsert-announcement.svelte";
 
 	export let data;
 	let openDialog: boolean = false;
+    let postDatas: posts = {} as posts;
 	const toggleDialog = () => openDialog = !openDialog;
+    const setPost = (post: posts) => (event: MouseEvent) => {
+        event.preventDefault();
+        postDatas = post;
+        openDialog = true;
+    };
+
+    $: isEditing = 'id' in postDatas;
 </script>
 
 <div class="page-announcements-container">
@@ -16,9 +24,10 @@
 		<small>Gestiona los anuncios oficiales del club.</small>
 	</div>
 
-	<AdminUpsertDialog bind:openDialog title="Nuevo anuncio oficial" buttonText="Crear anuncio">
-		<AppForm action="create" afterSubmit={toggleDialog}>
-			<UpsertAnnouncement />
+	<AdminUpsertDialog bind:openDialog title="{isEditing ? 'Editar' : 'Nuevo'} anuncio oficial" buttonText="Crear anuncio">
+		<AppForm afterSubmit={toggleDialog} updateId={isEditing ? postDatas.id : undefined}>
+            <input type="hidden" name="_action" value={isEditing ? 'update' : 'create'} />
+			<UpsertAnnouncement post_type="announcement" post_data={postDatas as posts} />
 		</AppForm>
 	</AdminUpsertDialog>
 
@@ -34,13 +43,12 @@
 								<small class="slug">{announcement.slug}</small>
 							</div>
 							<p class="excerpt">{announcement.excerpt}</p>
-
-							<AppForm action="update" updateId={announcement.id} showButtons={false}>
-								<Button type="submit" formaction="copy" icon="clipboard">
-									Duplicar
-								</Button>
-							</AppForm>
 						</div>
+                        
+                        <button type="button" class="button" on:click={setPost(announcement)}>
+                            <i class="bi bi-pencil-square"></i>
+                            Editar
+                        </button>
 					</li>
 				{/each}
 			</ul>

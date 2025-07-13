@@ -248,6 +248,7 @@ button.btn-primary,
 input[type='submit'].btn-primary {
 	background-color: var(--color);
 	color: #fff;
+    border: 1px solid var(--color);
 }
 
 button:disabled,
@@ -256,12 +257,11 @@ input[type='reset']:disabled,
 input[type='button']:disabled,
 .btn:disabled,
 .btn.disabled {
-	opacity: .6;
+	opacity: 0.6;
 	background-color: #ddd;
 	color: #999;
 	cursor: not-allowed;
 }
-
 
 button.unbutton,
 input[type='submit'].unbutton,
@@ -443,7 +443,7 @@ button,
 .btn {
 	background-color: #eee;
 	color: #333;
-	border: none;
+    border: 1px solid #bbbbbb;
 	outline: none;
 	padding: 8px 20px;
 	border-radius: 5px;
@@ -471,37 +471,50 @@ button,
 }
 .btn.green,
 .btn.primary {
-	background-color: var(--green);
+    border: none;
 	color: #fff;
+	background-color: var(--green);
 }
 .btn.success {
 	background-color: #d4f8e8;
 	color: #388e3c;
+    border: 1px solid #388e3c;
 }
 
 .btn.danger {
-	background-color: #ff8b94;
-	color: #d32f2f;
+	background-color: #fcb2b8;
+	color: #ab2626;
+    border: 1px solid #d32f2f;
 }
 
+.btn.warn,
 .btn.warning {
-	background-color: #ffdac1;
-	color: #795548;
+	background-color: #ffebd0;
+	color: #9b742f;
+    border: 1px solid #9b742f;
 }
 
 .btn.info {
 	background-color: #b3e5fc;
 	color: #0288d1;
+    border: 1px solid #0288d1;
 }
 
 .btn.light {
 	background-color: #f8f9fa;
 	color: #495057;
+    border: 1px solid #495057;
 }
 
 .btn.dark {
 	background-color: #6c757d;
 	color: #ffffff;
+    border: 1px solid #343a40;
+}
+
+.btn.small {
+    padding: 4px 10px;
+    font-size: 12px;
 }
 
 /* FORMs */
@@ -523,7 +536,6 @@ button,
 	color: #000;
 	font-size: 16px;
 	font-weight: 400;
-
 }
 .form-item label .required,
 .form-item span.label .required {
@@ -609,6 +621,18 @@ input.checkbox:checked + .inner {
 	background-color: var(--accent);
 	color: #fff;
 }
+.form-item.app-form-item.ckeditor-custom-container .ck.ck-editor {
+	width: 100%;
+	height: 100%;
+	min-height: var(--ckeditor-height, 300px);
+}
+.form-item.app-form-item.ckeditor-custom-container label {
+	display: none;
+}
+.ck.ck-content.ck-editor__editable {
+	white-space: pre-wrap;
+    min-height: var(--ckeditor-height, 300px);
+}
 
 /* BOX */
 .card {
@@ -640,7 +664,6 @@ input.checkbox:checked + .inner {
 .box .box-content {
 	padding: 1rem 0;
 }
-
 
 .non-visible-scroll::-webkit-scrollbar {
 	display: none;

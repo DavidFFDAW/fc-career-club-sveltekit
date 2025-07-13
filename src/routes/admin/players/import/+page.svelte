@@ -27,11 +27,13 @@
 				termination_clause,
 				status
 			] = row;
+			const shirtNumber = parseInt(number, 10);
+
 			return {
 				name,
 				slug: slugify(name),
 				shirt_name,
-				number: parseInt(number, 10),
+				number: Number.isNaN(shirtNumber) ? 0 : shirtNumber,
 				position,
 				role,
 				overall: parseInt(overall, 10),
@@ -86,7 +88,9 @@
 </div>
 
 <form action="" method="post" class="down w1 import-form flex column start astart gap-medium">
-	<button type="submit" class="btn btn-primary" disabled={csvData.length == 0}>Importar jugadores</button>
+	<button type="submit" class="btn btn-primary" disabled={csvData.length == 0}
+		>Importar jugadores</button
+	>
 	{#if csvData.length > 0}
 		<ul class="importing-players-datas w1 flex column start astart gap-medium">
 			{#each csvData as player}
@@ -96,7 +100,9 @@
 			{/each}
 		</ul>
 	{/if}
-	<button type="submit" class="btn btn-primary" disabled={csvData.length == 0}>Importar jugadores</button>
+	<button type="submit" class="btn btn-primary" disabled={csvData.length == 0}
+		>Importar jugadores</button
+	>
 </form>
 
 <style>

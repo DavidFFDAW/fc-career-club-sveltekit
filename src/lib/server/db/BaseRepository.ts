@@ -12,6 +12,7 @@ export class BaseRepository<
 > {
 	protected requiredFields: string[] = [];
 	protected prisma: PrismaClient;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
 	protected model: any; // Aquí guardaremos la referencia al cliente del modelo de Prisma
 
 	constructor(modelName: keyof PrismaClient) {

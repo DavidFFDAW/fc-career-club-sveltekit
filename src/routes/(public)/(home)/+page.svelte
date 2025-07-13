@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PostMiniature from '$lib/components/post/post-miniature.svelte';
-	import AnnouncementsSlider from './announcements-slider.svelte';
+	// import AnnouncementsSlider from './announcements-slider.svelte';
 
 	const backgroundImage =
 		'https://d1tm14lrsghf7q.cloudfront.net/public/media/3134/conversions/283792-cover.jpg';
@@ -38,18 +38,20 @@
 			<h2>Trofeos</h2>
 		</section>
 
-		<section class="blog">
-			<h2>Blog posts</h2>
+		{#if data.posts.length > 0}
+			<section class="blog">
+				<h2>Blog posts</h2>
 
-			<div class="post-layout-container">
-				<div class="blog-post-second-column">
-					{#each data.announcements as announcement}
-						<PostMiniature post={announcement} showExcerpt={false} />
-					{/each}
+				<div class="post-layout-container">
+					<div class="blog-post-second-column">
+						{#each data.posts as post}
+							<PostMiniature post={post} showExcerpt={false} />
+						{/each}
+					</div>
+					<PostMiniature post={data.posts[0]} showExcerpt={true} />
 				</div>
-				<PostMiniature post={firstAnnouncement} showExcerpt={true} />
-			</div>
-		</section>
+			</section>
+		{/if}
 	</div>
 </section>
 

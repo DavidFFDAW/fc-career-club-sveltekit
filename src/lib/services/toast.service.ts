@@ -1,23 +1,25 @@
+import ToastUtils from "$lib/stores/toast";
+
 export const Toast = {
 	success: (message: string) => {
 		console.log(`Success: ${message}`);
-		alert(`Success: ${message}`);
+        ToastUtils.add(message, 'success');
 	},
 	error: (message: string) => {
 		console.error(`Error: ${message}`);
-		alert(`Error: ${message}`);
+		ToastUtils.add(message, 'error');
 	},
 	info: (message: string) => {
 		console.info(`Info: ${message}`);
-		alert(`Info: ${message}`);
+		ToastUtils.add(message, 'info');
 	},
 	warn: (message: string) => {
 		console.warn(`Warning: ${message}`);
-		alert(`Warning: ${message}`);
+        ToastUtils.add(message, 'warning');
 	},
 	danger: (message: string) => {
 		console.error(`Danger: ${message}`);
-		alert(`Danger: ${message}`);
+		ToastUtils.add(message, 'error');
 	}
 }
 export default Toast;

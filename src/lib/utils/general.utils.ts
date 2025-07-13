@@ -35,11 +35,30 @@ export const slugify = (text: string) => {
 		.replace(/^the-/i, ''); // remove leading 'the-' if present
 };
 
+export function readFile(
+	file: File | Blob,
+	type: 'text' | 'dataURL' = 'text',
+	reader: FileReader = new FileReader()
+): Promise<string | ArrayBuffer> {
+	return new Promise((resolve, reject) => {
+		reader.onload = () => {
+			resolve(reader.result as string | ArrayBuffer);
+		};
+		reader.onerror = reject;
+		const callback = type === 'text' ? reader.readAsText : reader.readAsDataURL;
+        if (!file) {
+            return reject(new Error('No file provided'));
+        }
+        callback.call(reader, file);
+	});
+}
+
 export const GeneralUtils = {
 	slugify: slugify,
 	generateRandomIdentifier: (length: number) =>
 		Math.random()
 			.toString(36)
-			.substring(2, 2 + length)
+			.substring(2, 2 + length),
+    readFile: readFile,
 };
 export default GeneralUtils;

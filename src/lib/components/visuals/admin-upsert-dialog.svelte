@@ -11,6 +11,7 @@
 </script>
 
 <div class="w1 flex end acenter">
+    <slot name="buttons"/>
 	<button type="button" on:click={toggleDialog} class="btn cta icon">
 		<i class="bi bi-plus"></i>
 		<span class="text">{buttonText}</span>

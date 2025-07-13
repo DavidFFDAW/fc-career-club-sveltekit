@@ -20,7 +20,6 @@ export const Helpers = {
 	},
 	getUpdatingId: (formData: FormData) => {
 		const updateId = Number(formData.get('_update_id'));
-		console.log('Update ID:', updateId);
 		
 		if (!updateId || isNaN(updateId) || !formData.has('_update_id')) {
 			throw new Error('Formato de ID de actualización inválido');
@@ -28,6 +27,7 @@ export const Helpers = {
 		
 		return updateId;
 	},
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
 	tryCatch: async (errorMessage: string, fn: () => Promise<any>) => {
 		try {
 			return await fn();
@@ -38,7 +38,14 @@ export const Helpers = {
 				message: errorMessage || 'Ocurrió un error inesperado'
 			});
 		}
-	}
+	},
+    getFormAction: (formData: FormData) => {
+        const action = formData.get('_action');
+        if (typeof action !== 'string' || !action.trim()) 
+            return null;
+
+        return action.trim().toLowerCase();
+    }
 };
 
 export default Helpers;

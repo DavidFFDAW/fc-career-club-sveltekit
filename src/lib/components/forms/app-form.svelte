@@ -14,6 +14,7 @@
 	use:enhance={customEnhance(afterSubmit)}
 	action={action ? `?/${action}` : ''}
 	class={`${$$restProps.class} app-form`}
+	enctype="multipart/form-data"
 >
 	{#if updateId}
 		<input type="hidden" name="_update_id" value={updateId} />
@@ -23,17 +24,14 @@
 
 	{#if showButtons}
 		<div class="w1 flex between gap-5 responsive down">
-				<button
-					type="reset"
-					class="btn reset rounded responsive-w1 tcenter"
-				>
-					<span class="text">Cancelar</span>
-				</button>
-				<button type="submit" class="btn icon cta rounded responsive-w1 center">
-					<i class="bi bi-person"></i>
-					<span class="text">{buttonText}</span>
-				</button>
-			</div>
+			<button type="reset" class="btn reset rounded responsive-w1 tcenter">
+				<span class="text">Cancelar</span>
+			</button>
+			<button type="submit" class="btn icon cta rounded responsive-w1 center">
+				<i class="bi bi-person"></i>
+				<span class="text">{buttonText}</span>
+			</button>
+		</div>
 	{/if}
 </form>
 
