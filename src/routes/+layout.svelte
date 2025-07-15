@@ -41,6 +41,7 @@
 			<img width="50" height="50" src="/images/mandarinos.png" alt="" />
 		</a>
 		<p class="nunito capitalize pointer">Mandarinos S.A.D</p>
+		<a href="/admin" class="btn button">Administración</a>
 	</header>
 
 	{#key data.url.route}

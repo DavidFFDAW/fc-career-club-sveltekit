@@ -18,18 +18,28 @@
 	<nav class="admin-aside-navigation w1 flex column gap-5 start aend">
 		<!-- <Navigation /> -->
 		<ul class="w1 admin-aside-link-list flex column gap-5 start aend">
+			
 			<li class="admin-aside-link-item">
+				<i class="bi bi-file-post"></i>
+				<a href="/admin/posts">Posts</a>
+			</li>
+			<li class="admin-aside-link-item">
+				<i class="bi bi-people"></i>
 				<a href="/admin/players">Jugadores</a>
 			</li>
 			<li class="admin-aside-link-item">
+				<i class="bi bi-eye"></i>
 				<a href="/admin/scouting">Ojear jugadores</a>
 			</li>
 			<li class="admin-aside-link-item">
+				<i class="bi bi-newspaper"></i>
 				<a href="/admin/announcements">Anuncios oficiales</a>
 			</li>
 			<li class="admin-aside-link-item">
-				<a href="/admin/posts">Posts</a>
+				<i class="bi bi-trophy"></i>
+				<a href="/admin/trophies">Sala de trofeos</a>
 			</li>
+			
 		</ul>
 	</nav>
 </aside>

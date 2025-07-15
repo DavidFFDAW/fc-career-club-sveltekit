@@ -22,8 +22,10 @@ export const Helpers = {
 		return { error: false, message: '' };
 	},
 	getUpdatingId: (formData: FormData) => {
+		if (!formData.has('_update_id'))
+			throw new Error('No se ha encontrado el id para actualizar el recurso');
+
 		const updateId = Number(formData.get('_update_id'));
-		
 		if (!updateId || isNaN(updateId) || !formData.has('_update_id')) {
 			throw new Error('Formato de ID de actualización inválido');
 		}

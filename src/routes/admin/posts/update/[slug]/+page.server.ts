@@ -10,7 +10,6 @@ export const load = async ({ params }) => {
             slug: { equals: slug }
 		},
 	});
-    console.log('Updating post:', updatingPost);
     
     if (!updatingPost) return Helpers.redirect('/admin/posts', 302);
 
@@ -25,13 +24,14 @@ export const actions = {
         const formData = await request.formData();
         const postRepo = new PostRepository();
 
-        try {
-            const created = await postRepo.createPost(formData, 'post');
-            if (!created) return Helpers.error('Error al crear el post', 500);
+		try {
+			const updateId = Helpers.getUpdatingId(formData);
+            const updatedPost = await postRepo.updatePost(updateId, formData, 'post');
+            if (!updatedPost.id) return Helpers.error('Error al actualizar el post', 500);
             return Helpers.success('Post creado correctamente', 201);
         } catch (error) {
-            console.error('Error al crear el post:', error);
-            return Helpers.error('Error al crear el post', 500);
+			console.error('Error al actualizar el post:', error);
+            return Helpers.error('Error al actualizar el post', 500);
         }
     },
 };

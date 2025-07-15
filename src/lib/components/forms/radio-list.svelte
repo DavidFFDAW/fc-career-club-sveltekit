@@ -16,7 +16,7 @@
 		{#each options as option}
 			<label class="unlabel relative">
 				<input type="radio" {name} value={option.value} bind:group={value} {...$$restProps} />
-				<span>{option.label}</span>
+				<span class="radio-label-item">{option.label}</span>
 			</label>
 		{/each}
 	</div>

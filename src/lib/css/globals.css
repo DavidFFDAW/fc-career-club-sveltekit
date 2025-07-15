@@ -551,6 +551,17 @@ button,
 	display: flex;
 	flex-direction: column;
 }
+label.form-item {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+label.form-item .label {
+	font-size: 1rem;
+	font-weight: 800;
+	color: var(--accent);
+	text-transform: uppercase;
+}
 
 .input,
 input,
@@ -610,11 +621,12 @@ input.checkbox:checked + .inner {
 	cursor: pointer;
 }
 .form-item.radio-check-item input + span {
-	display: inline-block;
+	display: block;
 	padding: 4px 15px;
 	border-radius: 20px;
 	background-color: transparent;
 	border: 1px solid var(--accent);
+	text-align: center;
 }
 .form-item.radio-check-item input:hover + span,
 .form-item.radio-check-item input:checked + span {
