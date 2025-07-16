@@ -1,12 +1,12 @@
 <script lang='ts'>
 	import PostMiniature from "$lib/components/post/post-miniature.svelte";
-	import type { posts } from "@prisma/client";
+	import type { Posts } from "@prisma/client";
 	import 'swiper/swiper-bundle.css';
 	import Swiper from 'swiper';
 	import { onMount } from 'svelte';
 
 	let slider: HTMLDivElement;
-	export let announcements: posts[] = [];
+	export let announcements: Posts[] = [];
 
 	onMount(() => {
 		new Swiper(slider, {

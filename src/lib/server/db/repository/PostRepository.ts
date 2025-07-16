@@ -1,14 +1,14 @@
-import type { posts } from '@prisma/client';
+import type { Posts } from '@prisma/client';
 import { Prisma } from '@prisma/client';
 import { BaseRepository } from '../BaseRepository';
 import Helpers from '$lib/server/utils/server.helper';
 
 export class PostRepository extends BaseRepository<
-	posts,
-	Prisma.postsCreateInput,
-	Prisma.postsUpdateInput,
-	Prisma.postsWhereUniqueInput,
-	Prisma.postsFindManyArgs
+	Posts,
+	Prisma.PostsCreateInput,
+	Prisma.PostsUpdateInput,
+	Prisma.PostsWhereUniqueInput,
+	Prisma.PostsFindManyArgs
 > {
     protected requiredFields: string[] = ['title', 'slug-title', 'content', 'excerpt', 'author'];
 	
@@ -16,13 +16,21 @@ export class PostRepository extends BaseRepository<
 		super('posts');
 	}
 
-	createPost(formData: FormData, type: 'post' | 'announcement'): Promise<posts> {
+	async getPostsAndAnnouncements(): Promise<{ posts: Posts[]; announcements: Posts[] }> {
+		const posts = await this.get();
+		return {
+			posts: posts.filter(post => post.type !== 'announcement'),
+			announcements: posts.filter(post => post.type === 'announcement')
+		};
+	}
+
+	createPost(formData: FormData, type: 'post' | 'announcement'): Promise<Posts> {
         const { error, message } = Helpers.checkRequiredFields(formData, this.requiredFields);
         if (error) throw new Error(message);
         const thumbnail = formData.has('thumbnail') ? formData.get('thumbnail') as string : '/images/mandarinos-announcement.jpg';
         
         const timestamp = Date.now();
-        const object: Prisma.postsCreateInput = {
+        const object: Prisma.PostsCreateInput = {
             title: formData.get('title') as string,
             content: formData.get('content') as string,
             thumbnail: thumbnail,
@@ -43,12 +51,12 @@ export class PostRepository extends BaseRepository<
         id: number,
         formData: FormData,
         type: 'post' | 'announcement'
-    ): Promise<posts> {
+    ): Promise<Posts> {
         const { error, message } = Helpers.checkRequiredFields(formData, this.requiredFields);
         if (error) throw new Error(message);
         const thumbnail = formData.has('thumbnail') ? formData.get('thumbnail') as string : '/images/mandarinos-announcement.jpg';
 
-		const object: Prisma.postsUpdateInput = {
+		const object: Prisma.PostsUpdateInput = {
             title: formData.get('title') as string,
             content: formData.get('content') as string,
             thumbnail: thumbnail,

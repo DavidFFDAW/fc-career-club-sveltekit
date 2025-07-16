@@ -1,6 +1,6 @@
 import { PlayerRepository } from '$lib/server/db/repository/PlayerRepository';
 import Helpers from '$lib/server/utils/server.helper.js';
-import type { players, Prisma } from '@prisma/client';
+import type { Prisma } from '@prisma/client';
 
 export const actions = {
 	default: async ({ request, locals }) => {
@@ -47,7 +47,7 @@ export const actions = {
 					overall_increment: Number(player.overall_increment) || null,
 					status: (player.status as string) || 'active',
 					termination_clause: Number(player.termination_clause) || null
-				} as Prisma.playersCreateInput;
+				} as Prisma.PlayersCreateInput;
 			}).filter((player) => player.name);
 			
 			const createdPlayers = await repository.bulkCreate(parsedCreatingPlayers);

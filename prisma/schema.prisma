@@ -7,30 +7,49 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model players {
-    id                 Int       @id @default(autoincrement())
-    name               String    @db.VarChar(100)
-    shirt_name         String    @db.VarChar(50)
-    slug               String    @unique(map: "slug") @db.VarChar(100)
-    overall            Int       @default(0)
-    overall_increment  Int?      @default(0) @db.Int
-    number             Int       @default(0)
-    age                Int       @default(0)
-    position           String    @db.VarChar(5)
-    role               String    @db.VarChar(50)
-    salary             Int       @default(0)
-    price              Int       @default(0)
+model Players {
+    id                Int       @id @default(autoincrement())
+    name              String    @db.VarChar(100)
+    shirt_name        String    @db.VarChar(50)
+    slug              String    @unique(map: "slug") @db.VarChar(100)
+    overall           Int       @default(0)
+    overall_increment Int?      @default(0) @db.Int
+    number            Int       @default(0)
+    age               Int       @default(0)
+    position          String    @db.VarChar(5)
+	role               String    @db.VarChar(50)
+    salary             Int       @db.Int @default(0)
+    price              Int       @db.Int @default(0)
     price_percentage   Int?      @db.Int
-    termination_clause Int?      @default(0)
-    country            String    @db.VarChar(50)
-    status             String    @default("active") @db.VarChar(150)
-    created_at         DateTime  @default(now()) @db.DateTime(0)
-    updated_at         DateTime? @updatedAt @db.DateTime(0)
+    termination_clause Int?      @db.Int @default(0)
+    country           String    @db.VarChar(50)
+    status            String    @default("active") @db.VarChar(150)
+    created_at        DateTime  @default(now()) @db.DateTime(0)
+    updated_at        DateTime? @updatedAt @db.DateTime(0)
+    contract          Contracts?
 
     @@map("players")
 }
 
-model posts {
+model Contracts {
+    id                 Int       @id @default(autoincrement())
+    player_id          Int       @unique(map: "player_id") @db.Int
+    duration           Int       @default(0) @db.Int
+    start_date         DateTime? @default(now()) @db.DateTime(0)
+    end_date           DateTime? @db.DateTime(0)
+    role               String    @db.VarChar(50)
+    salary             Int       @db.Int @default(0)
+    price              Int       @db.Int @default(0)
+    price_percentage   Int?      @db.Int
+    termination_clause Int?      @db.Int @default(0)
+    created_at         DateTime  @default(now()) @db.DateTime(0)
+    updated_at         DateTime? @updatedAt @db.DateTime(0)
+    player             Players?   @relation(fields: [player_id], references: [id])
+
+    @@map("contracts")
+}
+
+model Posts {
     id               Int       @id @default(autoincrement())
     title            String    @db.VarChar(255)
     slug             String    @unique(map: "slug") @db.VarChar(255)
@@ -52,7 +71,7 @@ model posts {
     @@map("posts")
 }
 
-model titles {
+model Titles {
     id          Int       @id @default(autoincrement())
     name        String    @db.VarChar(100)
     slug        String    @unique(map: "slug") @db.VarChar(100)

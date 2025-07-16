@@ -1,4 +1,4 @@
-import type { posts } from "@prisma/client"
+import type { Posts } from "@prisma/client"
 
 export const specificGeneralMetas = {
 	base: {
@@ -18,7 +18,7 @@ export const specificGeneralMetas = {
 	}
 }
 
-export const getSpecificMetasFromPost = (post: posts) => {
+export const getSpecificMetasFromPost = (post: Posts) => {
 	const postTitle = post.type === 'announcement'
 		? `Comunicado oficial: ${post.title}`
 		: post.title;

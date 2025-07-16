@@ -1,14 +1,14 @@
-import type { players } from '@prisma/client';
+import type { Players } from '@prisma/client';
 import { Prisma } from '@prisma/client';
 import { BaseRepository } from '../BaseRepository';
 import { slugify } from '$lib/utils/general.utils';
 
 export class PlayerRepository extends BaseRepository<
-	players,
-	Prisma.playersCreateInput,
-	Prisma.playersUpdateInput,
-	Prisma.playersWhereInput,
-	Prisma.playersOrderByWithRelationInput
+	Players,
+	Prisma.PlayersCreateInput,
+	Prisma.PlayersUpdateInput,
+	Prisma.PlayersWhereInput,
+	Prisma.PlayersOrderByWithRelationInput
 > {
 	protected requiredFields: string[] = [
 		'name',
@@ -27,7 +27,7 @@ export class PlayerRepository extends BaseRepository<
 		super('players');
 	}
 
-	getPlayerObject(data: FormData): Prisma.playersCreateInput {
+	getPlayerObject(data: FormData): Prisma.PlayersCreateInput {
 		const playerName = data.get('name') as string;
 
 		return {
@@ -46,6 +46,6 @@ export class PlayerRepository extends BaseRepository<
 			overall_increment: Number(data.get('overall_increment')) || null,
 			status: (data.get('status') as string) || 'active',
 			termination_clause: Number(data.get('termination_clause')) || null
-		} as Prisma.playersCreateInput;
+		} as Prisma.PlayersCreateInput;
 	}
 }

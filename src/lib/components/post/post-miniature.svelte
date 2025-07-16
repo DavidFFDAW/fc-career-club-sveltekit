@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { posts } from '@prisma/client';
+	import type { Posts } from '@prisma/client';
 	import Image from '../visuals/image.svelte';
-	export let post: posts;
+	export let post: Posts;
 	export let showExcerpt: boolean = true;
 </script>
 

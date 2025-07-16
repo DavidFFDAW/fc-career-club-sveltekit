@@ -2,14 +2,14 @@
 	import AppForm from "$lib/components/forms/app-form.svelte";
 	import AdminNoList from "$lib/components/visuals/admin-no-list.svelte";
 	import AdminUpsertDialog from "$lib/components/visuals/admin-upsert-dialog.svelte";
-	import type { posts } from "@prisma/client";
+	import type { Posts } from "@prisma/client";
 	import UpsertAnnouncement from "./upsert-announcement.svelte";
 
 	export let data;
 	let openDialog: boolean = false;
-    let postDatas: posts = {} as posts;
+    let postDatas: Posts = {} as Posts;
 	const toggleDialog = () => openDialog = !openDialog;
-    const setPost = (post: posts) => (event: MouseEvent) => {
+    const setPost = (post: Posts) => (event: MouseEvent) => {
         event.preventDefault();
         postDatas = post;
         openDialog = true;
@@ -27,7 +27,7 @@
 	<AdminUpsertDialog bind:openDialog title="{isEditing ? 'Editar' : 'Nuevo'} anuncio oficial" buttonText="Crear anuncio">
 		<AppForm afterSubmit={toggleDialog} updateId={isEditing ? postDatas.id : undefined}>
             <input type="hidden" name="_action" value={isEditing ? 'update' : 'create'} />
-			<UpsertAnnouncement post_type="announcement" post_data={postDatas as posts} />
+			<UpsertAnnouncement post_type="announcement" post_data={postDatas as Posts} />
 		</AppForm>
 	</AdminUpsertDialog>
 

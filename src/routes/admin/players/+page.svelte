@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { players } from '@prisma/client';
 	import PlayerForm from '$lib/components/players/player-form.svelte';
 	import PlayerShirt from '$lib/components/players/player-shirt.svelte';
 	import NumberUtils from '$lib/utils/number.utils';
