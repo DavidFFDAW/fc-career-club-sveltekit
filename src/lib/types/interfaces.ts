@@ -13,15 +13,10 @@ export interface PartialPlayer {
 	shirt_name: string;
 	number: number;
 	position: string;
-	role: string;
 	overall: number;
 	overall_increment: number | null | undefined;
 	age: number;
 	country: string;
-	price: number;
-	price_percentage: number | null | undefined;
-	salary: number;
-	termination_clause: number | null | undefined;
 	status: string;
 }
 

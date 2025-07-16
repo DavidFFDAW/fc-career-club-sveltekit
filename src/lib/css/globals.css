@@ -76,7 +76,10 @@ header.mandarinos-header .mandarinos-nav .mandarinos-nav-item.mandarinos-icon a.
 	background-color: #ddd;
 	border-radius: 50%;
 }
-
+.bi {
+	list-style: none;
+	line-height: 1;
+}
 .mandarinos-flash-messages {
 	position: fixed;
 	display: flex;
@@ -539,6 +542,9 @@ button,
 .btn.small {
 	padding: 4px 10px;
 	font-size: 12px;
+}
+.btn.small span {
+	font-size: 10px;
 }
 
 /* FORMs */

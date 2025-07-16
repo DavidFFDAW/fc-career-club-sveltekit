@@ -42,6 +42,15 @@ export class BaseRepository<
 		});
 	}
 
+	getBySlugOrId(slugOrId: string | number): Promise<T | null> {
+		const query = typeof slugOrId === 'number' ? { id: slugOrId } : { slug: slugOrId };
+		return this.model.findFirst({
+			where: {
+				...query
+			}
+		});
+	}
+
 	paginate(page: number, args?: FindManyArgs): Promise<[number, T[]]> {
 		const take = 15;
 		const prepage = page < 1 ? 1 : page;

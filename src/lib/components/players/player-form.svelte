@@ -79,19 +79,6 @@
 					}))}
 				/>
 				<Input
-					label="Rol"
-					name={multiple ? 'role[]' : 'role'}
-					type="select"
-					maxlength="50"
-					placeholder="Player Role"
-					bind:value={playerData.role}
-					options={playerRoles.map((role) => ({
-						value: role,
-						label: role
-					}))}
-				/>
-
-				<Input
 					label="Estado"
 					name={multiple ? 'status[]' : 'status'}
 					type="text"
@@ -131,38 +118,6 @@
 			</div>
 		</Fieldset>
 	</div>
-
-	<Fieldset legend="Finanzas">
-		<div class="form-group">
-			<PriceInput
-				label="Salario"
-				name={multiple ? 'salary[]' : 'salary'}
-				placeholder="Player Salary"
-				bind:value={playerData.salary}
-			/>
-			<PriceInput
-				label="Valor de mercado"
-				name={multiple ? 'price[]' : 'price'}
-				placeholder="Player Price"
-				bind:value={playerData.price}
-			/>
-
-			<PriceInput
-				label="Cláusula de rescisión"
-				name={multiple ? 'termination_clause[]' : 'termination_clause'}
-				placeholder="Termination Clause"
-				bind:value={playerData.termination_clause as number | undefined}
-			/>
-
-			<Input
-				label="Porcentaje de precio"
-				name={multiple ? 'price_percentage[]' : 'price_percentage'}
-				type="number"
-				placeholder="Player Price Percentage"
-				bind:value={playerData.price_percentage as number | undefined}
-			/>
-		</div>
-	</Fieldset>
 </div>
 
 <style>

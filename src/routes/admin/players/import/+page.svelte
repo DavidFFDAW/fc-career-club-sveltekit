@@ -11,39 +11,20 @@
 		const rows = text.split('\n').map((row) => row.split(','));
 		const realRows = rows.slice(1); // Ignorar la primera fila si es el encabezado
 		csvData = realRows.map((row) => {
-			const [
-				name,
-				shirt_name,
-				number,
-				position,
-				role,
-				overall,
-				overall_increment,
-				age,
-				country,
-				price,
-				price_percentage,
-				salary,
-				termination_clause,
-				status
-			] = row;
+			const [_, name, shirt_name, slug, overall, overall_increment, number, age, position, country, status] =
+				row;
 			const shirtNumber = parseInt(number, 10);
 
 			return {
 				name,
-				slug: slugify(name),
+				slug: slugify(slug),
 				shirt_name,
 				number: Number.isNaN(shirtNumber) ? 0 : shirtNumber,
 				position,
-				role,
 				overall: parseInt(overall, 10),
 				overall_increment: parseInt(overall_increment, 10),
 				age: parseInt(age, 10),
 				country,
-				price: parseFloat(price),
-				price_percentage: parseFloat(price_percentage),
-				salary: parseFloat(salary),
-				termination_clause: parseFloat(termination_clause),
 				status
 			};
 		});
@@ -88,9 +69,20 @@
 </div>
 
 <form action="" method="post" class="down w1 import-form flex column start astart gap-medium">
-	<button type="submit" class="btn btn-primary" disabled={csvData.length == 0}
-		>Importar jugadores</button
-	>
+	<header class="w1 flex between">
+	<button type="submit" class="btn btn-primary" disabled={csvData.length == 0}>
+		Importar jugadores
+	</button>
+	<a href="/api/protected/download/players/csv" download="players-template.csv" class="btn btn-secondary">
+		Descargar plantilla CSV
+		<i class="bi bi-download"></i>
+	</a>
+	</header>
+
+	{#if csvData.length == 0}
+		<p class="info">No hay datos para mostrar. Por favor, sube un archivo CSV.</p>
+	{/if}
+
 	{#if csvData.length > 0}
 		<ul class="importing-players-datas w1 flex column start astart gap-medium">
 			{#each csvData as player}
@@ -100,9 +92,12 @@
 			{/each}
 		</ul>
 	{/if}
-	<button type="submit" class="btn btn-primary" disabled={csvData.length == 0}
-		>Importar jugadores</button
-	>
+
+	{#if csvData.length > 0}
+		<button type="submit" class="btn btn-primary" disabled={csvData.length == 0}>
+			Importar jugadores
+		</button>
+	{/if}
 </form>
 
 <style>

@@ -20,4 +20,12 @@ export class ContractsRepository extends BaseRepository<
 			}
 		});
 	}
+
+	getContractByPlayerId(playerId: number): Promise<Contracts | null> {
+		return this.prisma.contracts.findFirst({
+			where: {
+				player_id: playerId
+			}
+		});
+	}
 }

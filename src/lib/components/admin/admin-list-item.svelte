@@ -4,7 +4,7 @@
 	export let responsiveColumns: number = 1;
 </script>
 
-<li class="w1 admin-list-item" style="--columns: {columns}; --responsive-columns: {responsiveColumns}" class:admin-list-header={admin}>
+<li class="w1 admin-list-item relative" style="--columns: {columns}; --responsive-columns: {responsiveColumns}" class:admin-list-header={admin}>
 	<slot />
 </li>
 

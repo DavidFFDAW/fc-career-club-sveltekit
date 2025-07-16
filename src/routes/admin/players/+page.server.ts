@@ -6,7 +6,13 @@ export const load = async () => {
 	const playerRepository = new PlayerRepository();
 	const players = await playerRepository.get();
 
-	return { players: players };
+	const playerPositionCount = players.reduce((acc: Record<string, number>, player) => {
+		const position = player.position || 'Desconocido';
+		acc[position] = (acc[position] || 0) + 1;
+		return acc;
+	}, {});
+
+	return { players: players, count: playerPositionCount };
 };
 
 export const actions = {
