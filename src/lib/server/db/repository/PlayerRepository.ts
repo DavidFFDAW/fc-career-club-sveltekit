@@ -17,9 +17,6 @@ export class PlayerRepository extends BaseRepository<
 		'number',
 		'age',
 		'position',
-		'role',
-		'salary',
-		'price',
 		'country'
 	];
 
@@ -35,17 +32,12 @@ export class PlayerRepository extends BaseRepository<
 			slug: slugify(playerName),
 			number: Number(data.get('number')),
 			position: data.get('position') as string,
-			role: data.get('role') as string,
 			shirt_name: data.get('name') as string,
 			country: data.get('country') as string,
 			overall: Number(data.get('overall')),
 			age: Number(data.get('age')),
-			salary: Number(data.get('salary')),
-			price: Number(data.get('price')),
-			price_percentage: Number(data.get('price_percentage')) || null,
 			overall_increment: Number(data.get('overall_increment')) || null,
 			status: (data.get('status') as string) || 'active',
-			termination_clause: Number(data.get('termination_clause')) || null
 		} as Prisma.PlayersCreateInput;
 	}
 }

@@ -21,7 +21,20 @@
 
 	<div class="w1 form-container down">
 		<div class="w1 box contract-form-container">
-			<AppForm method="post" buttonText={isEditing ? 'Actualizar Contrato' : 'Crear Contrato'} class="w1 flex astart gap-medium responsive">
+			<AppForm
+				method="post"
+				buttonText={isEditing ? 'Actualizar Contrato' : 'Crear Contrato'}
+				class="w1 flex astart gap-medium responsive"
+				updateId={isEditing ? contract.id : undefined}
+				reset={false}
+			>
+				<input type="hidden" name="player_id" value={player.id} />
+				<input
+					type="hidden"
+					name="_action"
+					value={isEditing ? 'update_contract' : 'create_contract'}
+				/>
+
 				<Fieldset legend="Información del contrato">
 					<div class="flex column gap-smaller">
 						<Input
@@ -61,6 +74,14 @@
 							bind:value={contract.price}
 							required
 						/>
+						<PriceInput
+							label="Salario"
+							name="salary"
+							placeholder="Salario mensual del jugador"
+							bind:value={contract.salary}
+							required
+						/>
+
 						{#if hasTerminationClause}
 							<div class="w1 termination-clause" transition:fade>
 								<PriceInput

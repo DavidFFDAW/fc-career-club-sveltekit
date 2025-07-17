@@ -598,7 +598,6 @@ label.form-item .label {
 	font-size: 1rem;
 	font-weight: 800;
 	color: var(--accent);
-	text-transform: uppercase;
 }
 
 .input,

@@ -6,9 +6,11 @@
 	import type { SlugifiedPlayer } from '$lib/types/interfaces';
 	import SlugInput from '../forms/slug-input.svelte';
 	import Fieldset from '../forms/fieldset.svelte';
+	import ShirtNumberSelector from './shirt-number-selector.svelte';
 
 	export let playerData: SlugifiedPlayer;
 	export let multiple: boolean = false;
+	export let currentDorsals: number[] = [];
 </script>
 
 <div class="w1 flex column gap">
@@ -39,14 +41,12 @@
 					</div>
 
 					<div class="w1 grid two-column-grid acenter gap-small">
-						<Input
-							label="Dorsal"
+						<ShirtNumberSelector
+							label="Número de camiseta"
 							name={multiple ? 'number[]' : 'number'}
-							type="number"
-							placeholder="Player Number"
+							numbersInUse={currentDorsals}
 							bind:value={playerData.number}
-							min="0"
-							max="50"
+							placeholder="Selecciona un número"
 						/>
 						<Input
 							label="Edad"

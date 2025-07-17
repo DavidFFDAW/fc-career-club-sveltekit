@@ -43,10 +43,12 @@ export class BaseRepository<
 	}
 
 	getBySlugOrId(slugOrId: string | number): Promise<T | null> {
-		const query = typeof slugOrId === 'number' ? { id: slugOrId } : { slug: slugOrId };
 		return this.model.findFirst({
 			where: {
-				...query
+				OR: [
+					{ slug: slugOrId },
+					{ id: typeof slugOrId === 'string' ? parseInt(slugOrId, 10) : slugOrId }
+				]
 			}
 		});
 	}

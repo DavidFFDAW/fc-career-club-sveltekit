@@ -30,9 +30,9 @@ export const actions = {
 			if (existingPlayer) return Helpers.error('Player with this name already exists', 400);
 
 			const creatingPlayerObject = repository.getPlayerObject(formData);
-			await repository.create(creatingPlayerObject);
-
-			return Helpers.success('Player created successfully', 201);
+			const createdPlayer = await repository.create(creatingPlayerObject);
+			if (!createdPlayer.id) return Helpers.error('Failed to create player', 500);
+			return Helpers.redirect(`/admin/players/${createdPlayer.id}/contract`, 302);
 		} catch (error) {
 			console.error('Error creating player:', error);
 			return Helpers.error('Failed to create player', 500);

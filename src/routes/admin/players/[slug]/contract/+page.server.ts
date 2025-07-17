@@ -23,4 +23,32 @@ export const load = async ({ params }) => {
 	};
 };
 
-export const actions = {};
+export const actions = {
+	default: async ({ request }) => {		
+		const formData = await request.formData();
+		const action = Helpers.getFormAction(formData);
+		if (!action) return Helpers.error('Acción no válida', 400);
+		
+		try {
+			const contractRepository = new ContractsRepository();
+			if (action !== 'create_contract' && action !== 'update_contract')
+				return Helpers.error('Acción no válida', 400);
+
+			if (action === 'create_contract') {
+				await contractRepository.createContract(formData);
+				return Helpers.success('Contrato creado exitosamente', 201);
+			}
+
+			if (action === 'update_contract') {
+				const updateId = Helpers.getUpdatingId(formData);
+				await contractRepository.updateContract(updateId, formData);
+				return Helpers.success('Contrato actualizado exitosamente', 200);
+			}
+
+			return Helpers.error('Acción no válida', 400);
+		} catch (error) {
+			console.error('Error processing form data:', error);
+			return Helpers.error('Error processing form data', 500);
+		}
+	}
+};

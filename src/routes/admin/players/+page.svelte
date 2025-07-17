@@ -6,6 +6,7 @@
 	import type { SlugifiedPlayer } from '$lib/types/interfaces.js';
 	import { fade } from 'svelte/transition';
 	import AdminListItem from '$lib/components/admin/admin-list-item.svelte';
+	import ButtonAsync from '$lib/components/forms/button-async.svelte';
 
 	let showUpsert: boolean = false;
 	let playerData: SlugifiedPlayer = {
@@ -26,7 +27,6 @@
 		overall_increment: 0
 	} as SlugifiedPlayer;
 	export let data;
-	export let form: { error?: string } | undefined = undefined;
 </script>
 
 <div class="page-players-container">
@@ -46,7 +46,7 @@
 
 	<section class="admin-players-header-box down">
 		{#if showUpsert}
-			<div transition:fade class="w1">
+			<div transition:fade class="w1 box">
 				<div class="w1 flex end acenter">
 					<button
 						type="button"
@@ -57,22 +57,15 @@
 						<i class="bi bi-x-circle"></i>
 					</button>
 				</div>
-				<AppForm>
-					<PlayerForm bind:playerData />
 
-					{#if form && form.error}
-						<div class="error-message">
-							<p>{form.error}</p>
-						</div>
-					{/if}
-
-					<div class="submit-buttons-container">
-						<button type="submit" class="btn cta icon icon-button">
-							<i class="bi bi-plus-circle"></i>
-							<span>Crear jugador</span>
-						</button>
-					</div>
-				</AppForm>
+				<div>
+					<AppForm method="post" reset={true}>
+						<PlayerForm 
+							bind:playerData 
+							currentDorsals={data.players.map((p) => p.number)} 
+						/>
+					</AppForm>
+				</div>
 			</div>
 		{/if}
 
@@ -104,8 +97,6 @@
 						<h4>{player.name}</h4>
 						<p class="player-number">#{player.age}</p>
 						<p class="player-position">{player.position}</p>
-						<p class="player-role">{player.role}</p>
-						<p class="player-salary">{NumberUtils.formatPrice(player.salary)}</p>
 
 						<div class="button-group">
 							<a
@@ -125,6 +116,17 @@
 								<i class="bi bi-file-person"></i>
 								<span>Contrato</span>
 							</a>
+
+							<ButtonAsync
+								endpoint={`/admin/players/${player.id.toString()}/delete`}
+								method="delete"
+								icon="trash"
+								confirmation={true}
+								redirect="/admin/players"
+								class="btn small danger"
+								aria-label="Delete player"
+								title="Eliminar jugador"
+							/>
 						</div>
 					</AdminListItem>
 				{/each}

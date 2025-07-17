@@ -11,7 +11,6 @@
 		title="Administración"
 		description="Panel de administración de la aplicación"
 	/>
-    <script src="{data.url.origin}/libs/ckeditor.js"></script>
 </svelte:head>
 
 <aside class="admin-aside">

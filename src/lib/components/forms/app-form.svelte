@@ -8,11 +8,12 @@
 	export let action: string | undefined = undefined;
     export let redirect: string | undefined = undefined;
 	export let updateId: number | string | undefined = undefined;
+	export let reset: boolean = true;
 </script>
 
 <form
 	method="post"
-	use:enhance={customEnhance(afterSubmit)}
+	use:enhance={customEnhance(afterSubmit, reset)}
 	action={action ? `?/${action}` : ''}
     data-redirect={redirect ? redirect : ''}
 	class={`${$$restProps.class} app-form`}

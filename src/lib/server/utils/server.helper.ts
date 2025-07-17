@@ -10,8 +10,9 @@ export const Helpers = {
 	error: (message: string, code?: number) => {
 		return fail(code || 500, { message, error: message });
 	},
-    redirect: (url: string, status: number = 302) => {
-        throw redirect(status, url);
+	redirect: (url: string, status: number = 302) => {
+		const innerStatus = /30\d/g.test(status.toString()) ? status : 302;
+        return redirect(innerStatus, url);
 	},
 	checkRequiredFields: (formData: FormData, requiredFields: string[]) => {
 		const missingFields = requiredFields.filter(

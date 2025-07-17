@@ -5,7 +5,7 @@ import type { ActionResult, SubmitFunction } from '@sveltejs/kit';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type CustomEnhanceAfterSubmit = (args: any) => void | null | undefined;
 
-export const customEnhance = (afterSubmit: CustomEnhanceAfterSubmit): SubmitFunction => {
+export const customEnhance = (afterSubmit: CustomEnhanceAfterSubmit, reset: boolean): SubmitFunction => {
 	const submitForm: SubmitFunction = ({ cancel, formElement }) => {
         const redirect = formElement.dataset.redirect;
 		const buttonInitiator = document.activeElement as HTMLButtonElement;
@@ -23,6 +23,8 @@ export const customEnhance = (afterSubmit: CustomEnhanceAfterSubmit): SubmitFunc
 		return async ({ result, update }) => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const response = result as ActionResult & { data: any };
+			console.log('Response from action:', response);
+			
 			const hasError = result.type === 'error' || result.type === 'failure';
 			if (afterSubmit) afterSubmit({ response, hasError, update, invalidate, buttonInitiator });
 
@@ -35,18 +37,22 @@ export const customEnhance = (afterSubmit: CustomEnhanceAfterSubmit): SubmitFunc
 			}
 
 			const hasSuccess = !hasError && /20\d/g.test(result.status?.toString());
+			const hasRedirect = (response.type === 'redirect' && response.location);
 
-			if (hasSuccess) {
+			if (hasSuccess || hasRedirect) {
 				const successMessage = response.data?.message || '¡Operación exitosa!';
-				await update({ reset: true });
+				await update({ reset: reset });
 				await invalidateAll();
 				buttonInitiator.disabled = false;
 				Toast.success(successMessage);
 
-                if (redirect) {
+				const hasRedirect = Boolean(redirect) || (response.type === 'redirect' && response.location);
+				const redirectUrl = 'location' in response ? response.location : redirect;
+
+				if (hasRedirect) {
                     setTimeout(() => {
-                        window.location.href = redirect;
-                    }, 500);
+						window.location.href = redirectUrl as string;
+                    }, 800);
                 }
 			}
 		};
