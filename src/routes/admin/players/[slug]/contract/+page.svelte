@@ -24,7 +24,6 @@
 			<AppForm
 				method="post"
 				buttonText={isEditing ? 'Actualizar Contrato' : 'Crear Contrato'}
-				class="w1 flex astart gap-medium responsive"
 				updateId={isEditing ? contract.id : undefined}
 				reset={false}
 			>
@@ -35,66 +34,69 @@
 					value={isEditing ? 'update_contract' : 'create_contract'}
 				/>
 
-				<Fieldset legend="Información del contrato">
-					<div class="flex column gap-smaller">
-						<Input
-							label="Duracion en años"
-							name="duration"
-							type="number"
-							placeholder="Duración del contrato en años"
-							bind:value={contract.duration}
-							min="1"
-							max="5"
-							required
-						/>
+				<div class="w1 flex astart gap-medium responsive">
+					<Fieldset legend="Información del contrato">
+						<div class="flex column gap-smaller">
+							<Input
+								label="Duracion en años"
+								name="duration"
+								type="number"
+								placeholder="Duración del contrato en años"
+								bind:value={contract.duration}
+								min="1"
+								max="5"
+								required
+							/>
 
-						<Input
-							label="Rol en equipo"
-							name="role"
-							type="select"
-							placeholder="Selecciona el rol del jugador"
-							bind:value={contract.role}
-							options={playerRoles.map((role) => ({ value: role, label: role }))}
-							required
-						/>
-					</div>
-				</Fieldset>
+							<Input
+								label="Rol en equipo"
+								name="role"
+								type="select"
+								placeholder="Selecciona el rol del jugador"
+								bind:value={contract.role}
+								options={playerRoles.map((role) => ({ value: role, label: role }))}
+								required
+							/>
+                            
+                            <Switch
+								label="¿Tiene cláusula de rescisión?"
+								name="hasTerminationClause"
+								bind:value={hasTerminationClause}
+							/>
+						</div>
+					</Fieldset>
 
-				<Fieldset legend="Datos económicos">
-					<div class="flex column gap-smaller">
-						<Switch
-							label="¿Tiene cláusula de rescisión?"
-							name="hasTerminationClause"
-							bind:value={hasTerminationClause}
-						/>
-						<PriceInput
-							label="Precio de compra"
-							name="price"
-							placeholder="Precio de compra del jugador"
-							bind:value={contract.price}
-							required
-						/>
-						<PriceInput
-							label="Salario"
-							name="salary"
-							placeholder="Salario mensual del jugador"
-							bind:value={contract.salary}
-							required
-						/>
+					<Fieldset legend="Datos económicos">
+						<div class="flex column gap-smaller">
+							<PriceInput
+								label="Precio de compra"
+								name="price"
+								placeholder="Precio de compra del jugador"
+								bind:value={contract.price}
+								required
+							/>
+							<PriceInput
+								label="Salario"
+								name="salary"
+								placeholder="Salario mensual del jugador"
+								bind:value={contract.salary}
+								required
+							/>
 
-						{#if hasTerminationClause}
-							<div class="w1 termination-clause" transition:fade>
-								<PriceInput
-									label="Cláusula de rescisión"
-									name="termination_clause"
-									placeholder="Cláusula de rescisión del jugador"
-									bind:value={contract.termination_clause as number}
-									required
-								/>
-							</div>
-						{/if}
-					</div>
-				</Fieldset>
+							{#if hasTerminationClause}
+								<div class="w1 termination-clause" transition:fade>
+									<PriceInput
+										label="Cláusula de rescisión"
+										name="termination_clause"
+										placeholder="Cláusula de rescisión del jugador"
+										bind:value={contract.termination_clause as number}
+										required
+									/>
+								</div>
+							{/if}
+						</div>
+					</Fieldset>
+				</div>
 			</AppForm>
 		</div>
 	</div>

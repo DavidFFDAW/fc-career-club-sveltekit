@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { invalidateAll } from '$app/navigation';
 	import { Http } from '$lib/services/http.service';
 	import Toast from '$lib/services/toast.service';
 
@@ -7,7 +8,7 @@
 	export let method: 'get' | 'post' | 'put' | 'delete' = 'post';
 	export let redirect: string | undefined | null = null;
 	export let confirmation: boolean = false;
-	let loading: boolean = true;
+	let loading: boolean = false;
 
 	const sendRequest = async (event: MouseEvent) => {
 		event.preventDefault();
@@ -19,6 +20,18 @@
 			loading = true;
 			const response = await Http[method](endpoint);
 			console.log('Response:', response);
+            
+            const hasSuccess = /20\d/g.test(response.status.toString());
+            const message = 'message' in response.data  ? response.data.message as string : 'Se ha completado la solicitud.';
+
+            if (hasSuccess) {
+                invalidateAll();
+                Toast.success(message);
+                if (redirect) {
+                    window.location.href = redirect;
+                }
+            }
+
 		} catch (error) {
 			console.error('Error sending request:', error);
 			return Toast.error('An error occurred while processing your request.');

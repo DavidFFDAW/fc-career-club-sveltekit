@@ -11,6 +11,7 @@ model Players {
     id                Int       @id @default(autoincrement())
     name              String    @db.VarChar(100)
     shirt_name        String    @db.VarChar(50)
+    image             String?   @default("https://cdn.sofifa.net/player_0.svg") @db.VarChar(255)
     slug              String    @unique(map: "slug") @db.VarChar(100)
     overall           Int       @default(0)
     overall_increment Int?      @default(0) @db.Int

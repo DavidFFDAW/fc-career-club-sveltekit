@@ -1,4 +1,4 @@
-function _makeRequest(
+async function _makeRequest(
 	endpoint: string,
 	method: 'GET' | 'POST' | 'PUT' | 'DELETE',
 	options: RequestInit = {}
@@ -17,12 +17,17 @@ function _makeRequest(
 		};
 	}
 
-	return fetch(endpoint, httpOptions).then(response => {
-		if (!response.ok) {
-			throw new Error(`HTTP error! status: ${response.status}`);
-		}
-		return {json: response.json(), response: response};
-	})
+    const initialResponse = await fetch(endpoint, httpOptions);
+    if (!initialResponse.ok) throw new Error(`HTTP error! status: ${initialResponse.status}`);
+    const jsonResponse = await initialResponse.json();
+    
+    return {
+        ok: initialResponse.ok,
+        status: initialResponse.status,
+        statusText: initialResponse.statusText,
+        headers: initialResponse.headers,
+        data: jsonResponse as Record<string, unknown>
+    };
 }
 
 export const Http = {

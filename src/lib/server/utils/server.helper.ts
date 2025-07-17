@@ -1,4 +1,4 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { fail, json, redirect } from '@sveltejs/kit';
 
 export const Helpers = {
 	success: (message: string, status: number = 200) => {
@@ -10,6 +10,19 @@ export const Helpers = {
 	error: (message: string, code?: number) => {
 		return fail(code || 500, { message, error: message });
 	},
+    api: {
+        json: (data: unknown, status: number = 200) => {
+            return json(data, {
+                status,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        },
+        message: (message: string, status: number = 200) => {
+            return json({ message }, { status });
+        },
+    },
 	redirect: (url: string, status: number = 302) => {
 		const innerStatus = /30\d/g.test(status.toString()) ? status : 302;
         return redirect(innerStatus, url);

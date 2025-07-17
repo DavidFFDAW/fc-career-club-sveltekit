@@ -6,7 +6,7 @@
 </script>
 
 <div class="image-input-container">
-	<img width="80" height="80" src={value} alt="input preview" class="product-image" />
+	<img draggable="false" width="80" height="80" src={value} alt="input preview" class="product-image" />
 	<label class="input-container form-item">
 		<span class="label">{label}</span>
 		{#if smallText}

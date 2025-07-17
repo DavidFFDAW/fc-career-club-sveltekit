@@ -100,7 +100,7 @@
 
 						<div class="button-group">
 							<a
-								href={`/admin/players/${player.slug}`}
+								href="/admin/players/{player.slug}/update"
 								class="btn small warning"
 								aria-label="Edit player"
 								title="Editar jugador"
@@ -118,11 +118,10 @@
 							</a>
 
 							<ButtonAsync
-								endpoint={`/admin/players/${player.id.toString()}/delete`}
+								endpoint={`/api/protected/players/${player.id.toString()}/delete`}
 								method="delete"
 								icon="trash"
 								confirmation={true}
-								redirect="/admin/players"
 								class="btn small danger"
 								aria-label="Delete player"
 								title="Eliminar jugador"

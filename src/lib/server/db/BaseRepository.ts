@@ -43,13 +43,13 @@ export class BaseRepository<
 	}
 
 	getBySlugOrId(slugOrId: string | number): Promise<T | null> {
+        const isId = typeof slugOrId === 'number' || !isNaN(Number(slugOrId));
+        const whereQuery = isId ? { id: Number(slugOrId) } : { slug: slugOrId };
+        
 		return this.model.findFirst({
 			where: {
-				OR: [
-					{ slug: slugOrId },
-					{ id: typeof slugOrId === 'string' ? parseInt(slugOrId, 10) : slugOrId }
-				]
-			}
+                ...whereQuery
+            }
 		});
 	}
 
