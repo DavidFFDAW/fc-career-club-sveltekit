@@ -36,17 +36,12 @@ export const actions = {
 					slug: player['slug-name'] || '',
 					number: Number(player.number) || 0,
 					position: player.position || '',
-					role: player.role || '',
 					shirt_name: player.shirt_name || '',
 					country: player.country || '',
 					overall: Number(player.overall) || 0,
 					age: Number(player.age) || 0,
-					salary: Number(player.salary) || 0,
-					price: Number(player.price) || 0,
-					price_percentage: Number(player.price_percentage) || null,
 					overall_increment: Number(player.overall_increment) || null,
 					status: (player.status as string) || 'active',
-					termination_clause: Number(player.termination_clause) || null
 				} as Prisma.PlayersCreateInput;
 			}).filter((player) => player.name);
 			

@@ -3,13 +3,17 @@ export const playerPositions: string[] = [
 	'DFC',
 	'LI',
 	'LD',
+    'CAI',
+    'CAD',
 	'MC',
 	'MI',
 	'MD',
 	'MCO',
+    'MCD',
 	'ED',
 	'EI',
-	'DC'
+	'DC',
+    'DL',
 ];
 
 export const playerRoles: string[] = ['Clave', 'Importante', 'Rotación', 'Ocasional', 'Promesa'];

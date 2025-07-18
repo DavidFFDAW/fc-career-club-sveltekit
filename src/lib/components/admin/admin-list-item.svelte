@@ -2,9 +2,16 @@
 	export let columns: number = 3;
 	export let admin: boolean = false;
 	export let responsiveColumns: number = 1;
+	export let placeItems: string = 'start';
+	export let gap: string = '6px';
 </script>
 
-<li class="w1 admin-list-item relative" style="--columns: {columns}; --responsive-columns: {responsiveColumns}" class:admin-list-header={admin}>
+<li
+	class="w1 admin-list-item relative"
+	style="--columns: {columns}; --responsive-columns: {responsiveColumns}; --place-items: {placeItems}; --gap: {gap};"
+	class:admin-list-item={true}
+	class:admin-list-header={admin}
+>
 	<slot />
 </li>
 
@@ -12,10 +19,12 @@
 	.admin-list-item {
 		display: grid;
 		grid-template-columns: repeat(var(--columns), 1fr);
+		gap: var(--gap, 6px);
 		border: 1px solid #eee;
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 		border-radius: 6px;
 		place-items: start;
+		place-items: var(--place-items);
 		align-items: center;
 		padding: 10px 15px;
 	}
@@ -30,14 +39,14 @@
 		letter-spacing: 0.05em;
 		text-align: center;
 	}
-	
+
 	@media only screen and (max-width: 768px) {
 		.admin-list-item {
 			grid-template-columns: repeat(var(--responsive-columns, 1), 1fr);
 			padding: 10px;
 		}
 		.admin-list-item.admin-list-header {
-			display: none;			
+			display: none;
 		}
 	}
 </style>

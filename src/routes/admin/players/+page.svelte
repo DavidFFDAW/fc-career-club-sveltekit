@@ -1,7 +1,6 @@
 <script lang="ts">
 	import PlayerForm from '$lib/components/players/player-form.svelte';
 	import PlayerShirt from '$lib/components/players/player-shirt.svelte';
-	import NumberUtils from '$lib/utils/number.utils';
 	import AppForm from '$lib/components/forms/app-form.svelte';
 	import type { SlugifiedPlayer } from '$lib/types/interfaces.js';
 	import { fade } from 'svelte/transition';
@@ -60,10 +59,7 @@
 
 				<div>
 					<AppForm method="post" reset={true}>
-						<PlayerForm 
-							bind:playerData 
-							currentDorsals={data.players.map((p) => p.number)} 
-						/>
+						<PlayerForm bind:playerData currentDorsals={data.players.map((p) => p.number)} />
 					</AppForm>
 				</div>
 			</div>
@@ -92,11 +88,13 @@
 		{#if data.players.length > 0}
 			<ul class="players-list admin-list">
 				{#each data.players as player}
-					<AdminListItem columns={6}>
-						<PlayerShirt name={player.shirt_name} number={player.number} />
-						<h4>{player.name}</h4>
-						<p class="player-number">#{player.age}</p>
-						<p class="player-position">{player.position}</p>
+					<div class="w1 flex acenter relative player-card-item gap-5">
+						<!-- <PlayerShirt name={player.shirt_name} number={player.number} /> -->
+						<img src={player.image} alt={player.name} class="player-image" width="80" />
+						<div class="name-position flex column astart">
+							<h4>{player.name} <small>({player.shirt_name})</small></h4>
+							<small><strong>{player.position}</strong> - {player.age} años</small>
+						</div>
 
 						<div class="button-group">
 							<a
@@ -127,7 +125,7 @@
 								title="Eliminar jugador"
 							/>
 						</div>
-					</AdminListItem>
+					</div>
 				{/each}
 			</ul>
 		{:else}
@@ -137,12 +135,10 @@
 </div>
 
 <style>
-	header.admin-players-header-box {
+	.player-card-item {
 		width: 100%;
-		display: flex;
-		flex-direction: column;
 		gap: 1rem;
-		padding: 20px;
+		padding: 30px 15px;
 		background-color: #fff;
 		border-radius: 8px;
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

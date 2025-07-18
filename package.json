@@ -16,7 +16,8 @@
 		"prisma:pull": "prisma db pull",
 		"prisma:generate": "prisma generate",
 		"prisma:push": "prisma db push",
-		"prisma:studio": "prisma studio"
+		"prisma:studio": "prisma studio",
+        "db:sync": "prisma db push && prisma generate"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",
