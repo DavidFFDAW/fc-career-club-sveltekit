@@ -53,12 +53,27 @@ export function readFile(
 	});
 }
 
+export function createCsv(data: Record<string, unknown>[], exceptions: string[] = []) {
+	const header = Object.keys(data[0]).filter(key => {
+		return !exceptions.includes(key);
+	}).join(',');
+
+	const rows = data.map(item => {
+		return Object.entries(item).filter(([key, _]) => {
+			return !exceptions.includes(key);
+		}).map(([_, value]) => value?.toString().replace(/,/g, ' ').replace(/\n/g, ' '));
+	}).join('\n');
+
+	return `${header}\n${rows}`;
+}
+
 export const GeneralUtils = {
 	slugify: slugify,
 	generateRandomIdentifier: (length: number) =>
 		Math.random()
 			.toString(36)
 			.substring(2, 2 + length),
-    readFile: readFile,
+	readFile: readFile,
+	createCsv: createCsv,
 };
 export default GeneralUtils;

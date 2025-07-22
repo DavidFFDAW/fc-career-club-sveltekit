@@ -35,6 +35,13 @@
 			</li>
 
 			<li class="nav-item">
+				<a href="/admin/scouting">
+					<i class="bi bi-eye"></i>
+					Ojear jugadores
+				</a>
+			</li>
+
+			<li class="nav-item">
 				<a href="/admin/trophies">
 					<i class="bi bi-trophy"></i>
 					Gestionar trofeos

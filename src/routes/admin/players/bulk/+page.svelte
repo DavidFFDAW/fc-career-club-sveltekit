@@ -1,8 +1,5 @@
 <script lang="ts">
-	import PlayerForm from '$lib/components/players/player-form.svelte';
-	import PlayerShirt from '$lib/components/players/player-shirt.svelte';
 	import AppForm from '$lib/components/forms/app-form.svelte';
-	import AdminListItem from '$lib/components/admin/admin-list-item.svelte';
 	import { playerPositions } from '$lib/constants/players';
 
 	export let data;
@@ -44,7 +41,6 @@
 								name="image[]"
 								placeholder="URL de la imagen del jugador"
 								bind:value={player.image}
-								required
 							/>
 							<a
 								href="https://sofifa.com/players?keyword={encodeURIComponent(player.name)}"

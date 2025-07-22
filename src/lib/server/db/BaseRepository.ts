@@ -92,6 +92,17 @@ export class BaseRepository<
 		return this.model.delete({ where });
 	}
 
+	deleteByIdOrSlug(idOrSlug: string | number): Promise<T | null> {
+		const isId = typeof idOrSlug === 'number' || !isNaN(Number(idOrSlug));
+		const whereQuery = isId ? { id: Number(idOrSlug) } : { slug: idOrSlug };
+
+		return this.model.delete({
+			where: {
+				...whereQuery
+			}
+		});
+	}
+
 	truncate(): Promise<number> {
 		return this.prisma.$executeRaw`TRUNCATE TABLE ${this.model._meta.name};`;
 	}

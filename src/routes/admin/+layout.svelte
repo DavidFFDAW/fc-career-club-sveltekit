@@ -19,12 +19,24 @@
 		<ul class="w1 admin-aside-link-list flex column gap-5 start aend">
 			
 			<li class="admin-aside-link-item">
+				<i class="bi bi-house"></i>
+				<a href="/">Home</a>
+			</li>
+			<li class="admin-aside-link-item">
+				<i class="bi bi-speedometer2"></i>
+				<a href="/admin">Dashboard</a>
+			</li>
+			<li class="admin-aside-link-item">
 				<i class="bi bi-file-post"></i>
 				<a href="/admin/posts">Posts</a>
 			</li>
 			<li class="admin-aside-link-item">
 				<i class="bi bi-people"></i>
 				<a href="/admin/players">Jugadores</a>
+			</li>
+			<li class="admin-aside-link-item">
+				<i class="bi bi-file-earmark-text"></i>
+				<a href="/admin/contracts">Contratos</a>
 			</li>
 			<li class="admin-aside-link-item">
 				<i class="bi bi-eye"></i>

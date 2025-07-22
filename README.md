@@ -38,35 +38,46 @@ npm run dev
 Esto abrirá el proyecto en un [servidor local](http://localhost:5175) y podrás ver la aplicación en tu navegador.
 
 
-## Funcionalidades
-- Público:
-  - Ver plantas.
-  - Suscribirse al boletín de la app.
-  - La suscripción al boletín sirve para que la app te notifique al móvil mediante push notifications y mediante correo acerca de qué plantas requieren cuidados.
+## MVP (Minimum Viable Product):
+- Sistema de login para usuarios (gestión de app).
+- Jugadores:
+  - Ver jugadores.
+  - Crear jugadores.
+  - Editar jugadores.
+  - Eliminar jugadores.
+  - Exportar jugadores a CSV.
+  - Importar jugadores desde CSV.
 
-- Privado:
-	- Plantas:
-		- Ver plantas.
-		- Crear plantas.
-		- Editar plantas.
-		- Eliminar plantas (CRUD).
-		- Generar QR para una o varias plantas.
-		- Ver QR de una o varias plantas.
-		- Descargar un archivo PDF generado con los códigos QR de las plantas seleccionadas.
+- Contratos:
+  - Ver contratos.
+  - Crear contratos.
+  - Editar contratos.
+  - Eliminar contratos.
+  - Exportar contratos a CSV.
+  - Importar contratos desde CSV.
 
-	- Usuarios:
-		- Ver usuarios.
-		- Crear usuarios.
-		- Editar usuarios.
-		- Eliminar usuarios.
-		- Cambiar contraseña de un usuario.
+- Scouting:
+  - Ver jugadores ojeados.
+  - Crear jugadores ojeados.
+  - Editar jugadores ojeados.
+  - Eliminar jugadores ojeados.
+  - Crear jugador real y contrato desde un jugador ojeado.
+  - Exportar jugadores ojeados a CSV.
+  - Importar jugadores ojeados desde CSV.
 
-	- Suscripciones (push):
-		- Ver suscripciones (con user-agent y usuario).
-		- Eliminar suscripciones.
+- Anuncios oficiales:
+  - Ver anuncios oficiales.
+  - Crear anuncios oficiales.
+  - Editar anuncios oficiales.
+  - Eliminar anuncios oficiales.
+  - Exportar anuncios oficiales a CSV.
+  - Importar anuncios oficiales desde CSV.
 
-## Cosas a futuro
-Esta app puede escalar rápido y puede ser que se considere oportuno añadir nuevas partes a ella. Cosas que pueden llegar en un futuro son:
-- Quizás en un futuro se considere introducir una nueva "app" dentro de esta, con paneles propios para gestionar stockage de productos de casa como agua, tierra, abono, etc.
-- El apartado de Stockage puede ser con productos no relacionados con plantas, como por ejemplo productos de limpieza, comida, etc.
-- Se va a utilizar un lector de códigos de barras para escanear productos y buscar en API por si se pueden obtener los datos de manera más sencilla.
+- Posts:
+  - Ver posts.
+  - Crear posts.
+  - Editar posts.
+  - Eliminar posts.
+  - Exportar posts a CSV.
+  - Importar posts desde CSV.
+

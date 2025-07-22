@@ -9,6 +9,13 @@
 	<header class="page-title">
 		<h1>Contratos</h1>
 		<small>Gestiona los contratos de los jugadores del equipo.</small>
+		
+		<nav class="w1 flex">
+			<a href="/admin/contracts/export/api?type=csv" class="block btn small success icon">
+				<i class="bi bi-file-earmark-arrow-down"></i>
+				<span>Exportar</span>
+			</a>
+		</nav>
 	</header>
 
 	<div class="down">
@@ -22,7 +29,7 @@
 							<p>Duracion: {contract.duration} años</p>
 							<p>Salario: {contract.salary.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}</p>
 							<p>Precio: {contract.price.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}</p>
-							<p>Rol: {contract.player.role}</p>
+							<p>Rol: {contract.role}</p>
 							<p>Posición: {contract.player.position}</p>
 						</div>
 						

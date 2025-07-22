@@ -21,9 +21,6 @@ export const actions = {
         const numbers = formData.getAll('number[]') as string[];
         const positions = formData.getAll('position[]') as string[];
 
-        console.log(images);
-        
-
         const parsedPlayers = names.map((name, index) => {
             return {
                 id: playerIds[index] ? parseInt(playerIds[index].trim(), 10) : null,

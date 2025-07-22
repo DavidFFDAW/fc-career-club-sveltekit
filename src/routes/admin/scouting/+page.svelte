@@ -140,7 +140,7 @@
 					})}
 				</small>
 
-				<div class="w1 flex column gap-5">
+				<div class="w1 buttons-container">
 					<button type="button" class="w1 btn icon update warning" on:click={setPlayerData(player)}>
 						<i class="bi bi-trash"></i>
 						<span class="text">Editar</span>
