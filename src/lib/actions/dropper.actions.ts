@@ -8,6 +8,7 @@ export function dropImages(
 	}
 
 	function onChange(event: Event) {
+		event.preventDefault();
 		const input = event.target as HTMLInputElement;
 		callbackFunction(Array.from(input.files || []));
 	}

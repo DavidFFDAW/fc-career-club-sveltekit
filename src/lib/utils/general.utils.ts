@@ -1,3 +1,8 @@
+export type CSVDatas = {
+	header: string[];
+	datas: Record<string, string>[];
+};
+
 export const slugify = (text: string) => {
 	return text
 		.trim()
@@ -65,6 +70,23 @@ export function createCsv(data: Record<string, unknown>[], exceptions: string[] 
 	}).join('\n');
 
 	return `${header}\n${rows}`;
+}
+
+export function readCsvContent(csv: string): CSVDatas {
+	const lines = csv.split('\n').map(line => line.trim()).filter(line => line);
+	const header = lines[0].split(',').map(col => col.trim());
+
+	return {
+		header: header,
+		datas: lines.slice(1).map(line => {
+			const values = line.split(',').map(value => value.trim());
+			return header.reduce((obj, key, index) => {
+				obj[key] = values[index] || '';
+				return obj;
+			}, {} as Record<string, string>);
+		}
+		),
+	};
 }
 
 export const GeneralUtils = {
