@@ -15,7 +15,7 @@ export class ContractsRepository extends BaseRepository<
         super('contracts');
 	}
 	
-	getContractsWithPlayers(): Promise<(Contracts & { player: Players })[]> {
+	getContractsWithPlayers(): Promise<(Contracts & { player: Players | null })[]> {
 		return this.prisma.contracts.findMany({
 			include: {
 				player: true	

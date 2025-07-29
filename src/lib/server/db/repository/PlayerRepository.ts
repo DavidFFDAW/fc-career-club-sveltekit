@@ -2,13 +2,14 @@ import type { Players } from '@prisma/client';
 import { Prisma } from '@prisma/client';
 import { BaseRepository } from '../BaseRepository';
 import { slugify } from '$lib/utils/general.utils';
+import prisma from '../prisma';
 
 export class PlayerRepository extends BaseRepository<
 	Players,
 	Prisma.PlayersCreateInput,
 	Prisma.PlayersUpdateInput,
 	Prisma.PlayersWhereInput,
-	Prisma.PlayersOrderByWithRelationInput
+	Prisma.PlayersFindManyArgs
 > {
 	protected requiredFields: string[] = [
 		'name',

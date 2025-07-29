@@ -25,6 +25,13 @@ export class BaseRepository<
 		}
 	}
 
+	select(select: Record<string, boolean>, args?: FindManyArgs): Promise<T[]> {
+		return this.model.findMany({
+			...args,
+			select: select,
+		});
+	}
+
 	get(args?: FindManyArgs): Promise<T[]> {
 		return this.model.findMany(args);
 	}
@@ -105,6 +112,10 @@ export class BaseRepository<
 
 	truncate(): Promise<number> {
 		return this.prisma.$executeRaw`TRUNCATE TABLE ${this.model._meta.name};`;
+	}
+
+	deleteAll(): Promise<number> {
+		return this.model.deleteMany({});
 	}
 
 	getRequiredFields(): string[] {

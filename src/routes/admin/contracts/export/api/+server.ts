@@ -10,9 +10,15 @@ export async function GET({ url }) {
 		return Helpers.api.error('Tipo de exportación no soportado', 400);
 
 	try {
-		const contracts = await contractRepository.get();
+		const contracts = await contractRepository.getContractsWithPlayers();
+		const formattedContracts = contracts.map(contract => ({
+			...contract,
+			player_name: contract.player ? contract.player.name : 'Desconocido',
+			player_id: contract.player ? contract.player.id : null,
+		}));
+
 		if (exportType === 'csv') {
-			const csvContent = GeneralUtils.createCsv(contracts, ['id', 'start_date', 'end_date', 'created_at', 'updated_at']);
+			const csvContent = GeneralUtils.createCsv(formattedContracts, ['id', 'start_date', 'end_date', 'created_at', 'updated_at', 'player']);
 			return new Response(csvContent, {
 				headers: {
 					'Content-Type': 'text/csv',

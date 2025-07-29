@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Breadcrumbs from '$lib/components/seo/breadcrumbs.svelte';
 	import SpecificMetas from '$lib/components/seo/specific-metas.svelte';
+	import ScrollButtons from '$lib/components/visuals/scroll-buttons.svelte';
 	import { alerts } from '$lib/stores/toast';
 	export let data;
 </script>
@@ -69,6 +70,8 @@
 	</header>
 
 	<slot />
+
+	<ScrollButtons />
 </div>
 
 <style>

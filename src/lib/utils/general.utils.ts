@@ -89,6 +89,21 @@ export function readCsvContent(csv: string): CSVDatas {
 	};
 }
 
+export function getArrayFormDatas(formData: FormData, keys: string[]): Record<string, string>[] {
+	const firstData = formData.getAll(keys[0]);
+	if (!firstData || firstData.length === 0) return [];
+
+	const allDatas = keys.map((key) => formData.getAll(key) as unknown[]);
+	
+	return firstData.map((_, index) => {
+		return keys.reduce((obj, key, keyIndex) => {
+			const _key = key.replace(/\[\]$/, '');
+			obj[_key] = allDatas[keyIndex][index] as string;
+			return obj;
+		}, {} as Record<string, string>);
+	});
+}
+
 export const GeneralUtils = {
 	slugify: slugify,
 	generateRandomIdentifier: (length: number) =>
@@ -97,5 +112,7 @@ export const GeneralUtils = {
 			.substring(2, 2 + length),
 	readFile: readFile,
 	createCsv: createCsv,
+	readCsvContent: readCsvContent,
+	getArrayFormDatas: getArrayFormDatas,
 };
 export default GeneralUtils;
