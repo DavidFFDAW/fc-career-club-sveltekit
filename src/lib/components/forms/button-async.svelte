@@ -46,6 +46,7 @@
 	{...$$restProps}
 	data-method={method}
 	data-redirect={redirect}
+	data-endpoint={endpoint}
 	class="relative async-button {$$restProps.class}"
 	class:loading
 	on:click={sendRequest}
@@ -59,7 +60,7 @@
 			<i class="button-loading-icon bi bi-hourglass-bottom"></i>
 		</div>
 	{/if}
-	<span>
+	<span class="button-inner-content">
 		<slot />
 	</span>
 </button>

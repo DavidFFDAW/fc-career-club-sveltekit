@@ -1,8 +1,10 @@
 <script lang="ts">
 	import AdminListItem from '$lib/components/admin/admin-list-item.svelte';
 	import AppForm from '$lib/components/forms/app-form.svelte';
+	import ButtonAsync from '$lib/components/forms/button-async.svelte';
 	import Input from '$lib/components/forms/input.svelte';
 	import PriceInput from '$lib/components/forms/price-input.svelte';
+	import PlayerCard from '$lib/components/players/player-card.svelte';
 	import Dialog from '$lib/components/visuals/dialog/dialog.svelte';
 	import type { Scouting } from '@prisma/client';
 
@@ -44,7 +46,7 @@
 </script>
 
 <div class="w1 scouting-panel h1 flex astart start column gap">
-	<h1>Panel de jugadores ojeados</h1>
+	<h1>Jugadores ojeados</h1>
 	<!-- <Debug {data} /> -->
 	<div class="w1 flex end acenter">
 		<button type="button" on:click={() => resetForm(true)} class="btn cta icon">
@@ -108,45 +110,52 @@
 	</Dialog>
 
 	<ul class="w1 admin-list">
-		<AdminListItem columns={4} admin>
-			<p>Jugador</p>
-			<p>Precio estimado</p>
-			<p>Salario estimado</p>
-			<p>Acciones</p>
-		</AdminListItem>
-
 		{#each data.scoutingPlayers as player}
-			<AdminListItem columns={4}>
-				<div class="w1 flex start astart column gap-5">
-					<p class="uppercase bold">{player.player_name}</p>
-					<small>{player.interest_type}</small>
+			<PlayerCard name={player.player_name}>
+				<div class="w1 flex astart column gap-5">
+					<p class="flex-responsive column">
+						<strong>Interés:</strong>
+						<small>{player.interest_type}</small>
+					</p>
+					<p class="flex-responsive column">
+						<strong>Precio estimado:</strong>
+						<small>{player.player_supposed_price?.toPriceFormat()}</small>
+					</p>
+					<p class="flex-responsive column">
+						<strong>Salario estimado:</strong>
+						<small>{player.player_supposed_salary?.toPriceFormat()}</small>
+					</p>
 				</div>
 
-				<small>
-					{player.player_supposed_price?.toLocaleString('es-ES', {
-						style: 'currency',
-						currency: 'EUR',
-						minimumFractionDigits: 0,
-						maximumFractionDigits: 0
-					})}
-				</small>
+				<div class="button-group">
+					<a
+						href="/admin/scouting/upsert"
+						class="btn small info"
+						aria-label="Crear nuevo jugador ojeado"
+						title="Crear nuevo jugador ojeado"
+					>
+						<i class="bi bi-plus-circle"></i>
+					</a>
+					<a
+						href="/admin/scouting/upsert?id={player.id}"
+						class="btn small warning"
+						aria-label="Edit player"
+						title="Editar jugador"
+					>
+						<i class="bi bi-pencil-square"></i>
+					</a>
 
-				<small>
-					{player.player_supposed_salary?.toLocaleString('es-ES', {
-						style: 'currency',
-						currency: 'EUR',
-						minimumFractionDigits: 0,
-						maximumFractionDigits: 0
-					})}
-				</small>
-
-				<div class="w1 buttons-container">
-					<button type="button" class="w1 btn icon update warning" on:click={setPlayerData(player)}>
-						<i class="bi bi-trash"></i>
-						<span class="text">Editar</span>
-					</button>
+					<ButtonAsync
+						endpoint={`/api/protected/scouting/${player.id.toString()}/delete`}
+						method="delete"
+						icon="trash"
+						confirmation={true}
+						class="btn small danger"
+						aria-label="Eliminar jugador"
+						title="Eliminar jugador"
+					/>
 				</div>
-			</AdminListItem>
+			</PlayerCard>
 		{/each}
 	</ul>
 </div>

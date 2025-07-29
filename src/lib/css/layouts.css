@@ -310,6 +310,11 @@
 	.w1-responsive {
 		width: 100%;
 	}
+	.flex-responsive,
+	.responsive-flex {
+		display: flex;
+		flex-direction: column;
+	}
 
 	.flex.responsive-align-start {
 		align-items: flex-start;

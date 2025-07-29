@@ -549,7 +549,10 @@ button,
 .btn.small span {
     font-size: 10px;
 }
-
+strong {
+	position: relative;
+	font-weight: 800;
+}
 /* FORMs */
 .form-item {
     width: 100%;

@@ -15,5 +15,5 @@ export const playerPositions: string[] = [
 	'DC',
     'DL',
 ];
-
 export const playerRoles: string[] = ['Clave', 'Importante', 'Rotación', 'Ocasional', 'Promesa'];
+export const defaultPlayerImage: string = 'https://cdn.sofifa.net/player_0.svg';

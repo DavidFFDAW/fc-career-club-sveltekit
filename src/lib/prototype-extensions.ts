@@ -8,6 +8,20 @@ export function initializePrototypeExtensions() {
         writable: true,
         configurable: true,
         enumerable: false,
+	});
+	Object.defineProperty(Number.prototype, 'toPriceFormat', {
+		value: function (decimalDigits: number = 0) {
+			if (isNaN(this)) return '0,00 €';
+            return this.toLocaleString('es-ES', {
+                style: 'currency',
+				currency: 'EUR',
+				minimumFractionDigits: 0,
+				maximumFractionDigits: decimalDigits
+            });
+        },
+        writable: true,
+        configurable: true,
+        enumerable: false,
     });
     Object.defineProperty(Date.prototype, 'ww_getFullDateTime', {
         value: function () {
