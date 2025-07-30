@@ -171,6 +171,7 @@
 					>
 						<i class="bi bi-plus-circle"></i>
 					</a>
+
 					<a
 						href="/admin/scouting/upsert?id={player.id}"
 						class="btn small warning"
@@ -178,6 +179,16 @@
 						title="Editar jugador"
 					>
 						<i class="bi bi-pencil-square"></i>
+					</a>
+					
+					<a
+						href="/admin/scouting/create-player/{player.id}"
+						class="btn small warning"
+						aria-label="Fichar jugador"
+						title="Fichar jugador"
+					>
+						<i class="bi bi-person-plus"></i>
+						<span class="text">Fichar</span>
 					</a>
 
 					<ButtonAsync
