@@ -14,7 +14,7 @@ export class ScoutingRepository extends BaseRepository<
 		super('scouting');
 	}
 
-	private readonly requiredFields: string[] = ['player_name'];
+	protected readonly requiredFields: string[] = ['player_name'];
 
 	getObjectFromFormData(formData: FormData): Prisma.ScoutingCreateInput {
 		const { error, message } = Helpers.checkRequiredFields(formData, this.requiredFields);
@@ -22,9 +22,9 @@ export class ScoutingRepository extends BaseRepository<
 
 		return {
 			player_name: formData.get('player_name') as string,
-			player_supposed_price: Number(formData.get('player_supposed_price')) || 0,
-			player_interest_type: formData.get('player_interest_type') as string,
-			player_supposed_salary: Number(formData.get('player_supposed_salary')) || 0
+			player_supposed_price: Number(formData.get('stimated_price')) || 0,
+			player_interest_type: formData.get('interest_type') as string,
+			player_supposed_salary: Number(formData.get('stimated_salary')) || 0
 		} as Prisma.ScoutingCreateInput;
 	}
 }

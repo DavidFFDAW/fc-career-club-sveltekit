@@ -70,9 +70,18 @@
 				<i class="bi bi-file-earmark-arrow-down"></i>
 				<span class="text">Exportar</span>
 			</a>
+			<a
+				href="/admin/scouting/import"
+				class="btn small success icon"
+				aria-label="Importar jugadores ojeados"
+				title="Importar jugadores ojeados"
+			>
+				<i class="bi bi-file-earmark-arrow-up"></i>
+				<span class="text">Importar</span>
+			</a>
 		</nav>
 	</PageTitle>
-	
+
 	<!-- <Debug {data} /> -->
 	<div class="w1 flex end acenter">
 		<button type="button" on:click={() => resetForm(true)} class="btn cta icon">
