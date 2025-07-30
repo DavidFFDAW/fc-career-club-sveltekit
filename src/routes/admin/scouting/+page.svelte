@@ -6,6 +6,7 @@
 	import PriceInput from '$lib/components/forms/price-input.svelte';
 	import PlayerCard from '$lib/components/players/player-card.svelte';
 	import Dialog from '$lib/components/visuals/dialog/dialog.svelte';
+	import PageTitle from '$lib/components/visuals/page-title.svelte';
 	import type { Scouting } from '@prisma/client';
 
 	export let data;
@@ -46,7 +47,32 @@
 </script>
 
 <div class="w1 scouting-panel h1 flex astart start column gap">
-	<h1>Jugadores ojeados</h1>
+	<PageTitle
+		title="Jugadores ojeados"
+		description="Gestiona los jugadores ojeados por tu equipo.">
+		<nav class="page-navigation-items w1 flex gap-5">
+			<a
+				href="/admin/scouting/upsert"
+				class="btn small info icon"
+				download="nuevo-jugador-ojeado"
+				aria-label="Crear nuevo jugador ojeado"
+				title="Crear nuevo jugador ojeado"
+			>
+				<i class="bi bi-plus"></i>
+				<span class="text">Crear</span>
+			</a>
+			<a
+				href="/admin/scouting/api/export"
+				class="btn small warn icon"
+				aria-label="Exportar jugadores ojeados"
+				title="Exportar jugadores ojeados"
+			>
+				<i class="bi bi-file-earmark-arrow-down"></i>
+				<span class="text">Exportar</span>
+			</a>
+		</nav>
+	</PageTitle>
+	
 	<!-- <Debug {data} /> -->
 	<div class="w1 flex end acenter">
 		<button type="button" on:click={() => resetForm(true)} class="btn cta icon">

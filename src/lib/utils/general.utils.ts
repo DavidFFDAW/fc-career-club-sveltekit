@@ -58,7 +58,8 @@ export function readFile(
 	});
 }
 
-export function createCsv(data: Record<string, unknown>[], exceptions: string[] = []) {
+export function createCsv(data: Record<string, unknown>[], givenExceptions: string[] = []) {
+	const exceptions = [...givenExceptions, , 'created_at', 'updated_at'];
 	const header = Object.keys(data[0]).filter(key => {
 		return !exceptions.includes(key);
 	}).join(',');
