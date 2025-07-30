@@ -59,7 +59,7 @@ export const customEnhance = (afterSubmit: CustomEnhanceAfterSubmit, options: Fo
 				if (hasRedirect) {
                     setTimeout(() => {
 						window.location.href = redirectUrl as string;
-                    }, 800);
+                    }, 400);
                 }
 			}
 		};
