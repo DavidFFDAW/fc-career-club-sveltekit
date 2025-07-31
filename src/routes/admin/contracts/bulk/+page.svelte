@@ -26,7 +26,7 @@
 				{#each data.contracts as contract}
 					<tr class="contract-item">
 						<td aria-readonly="true">
-							{contract.player.name}
+							{contract.player ? contract.player.name : 'Jugador no encontrado'}
 						</td>
 						<td>{contract.duration} años</td>
 						<td
@@ -34,8 +34,8 @@
 						>
 						<td>{contract.price.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}</td
 						>
-						<td>{contract.player.role}</td>
-						<td>{contract.player.position}</td>
+						<td>{contract.role}</td>
+						<td>{contract.player ? contract.player.position : 'Posición no encontrada'}</td>
 						<td class="relative">
 							<div class="button-group">
 								<a

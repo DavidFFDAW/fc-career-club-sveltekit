@@ -462,6 +462,38 @@ main.admin-page {
     border-radius: 5px;
 }
 
+header.page-title {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 8px 15px;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	background-color: #fff;
+}
+header.page-title h1 {
+	position: relative;
+	font-size: 1.3rem;
+	font-weight: 700;
+}
+header.page-title h1::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: 0px;
+	width: 10%;
+	height: 3px;
+	border-radius: 12px;
+	background-color: var(--accent);
+}
+header.page-title span,
+header.page-title small {
+	display: block;
+	font-size: 0.85rem;
+	color: #666;
+}
+
+
 button,
 .btn {
     background-color: #eee;

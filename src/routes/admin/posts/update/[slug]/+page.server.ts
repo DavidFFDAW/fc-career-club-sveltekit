@@ -1,7 +1,14 @@
 import { PostRepository } from '$lib/server/db/repository/PostRepository.js';
 import Helpers from '$lib/server/utils/server.helper.js';
 
-export const load = async ({ params }) => {
+export const load = async ({ params, url }) => {
+	if (!url.searchParams.has('slug')) return {
+		upsertPost: {
+			post: null,
+			param_slug: null,
+		}
+	};
+
     const slug = params.slug;
 	const postsRepository = new PostRepository();
 	const updatingPost = await postsRepository.getRow({

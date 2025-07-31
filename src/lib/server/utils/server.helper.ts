@@ -1,3 +1,4 @@
+import GeneralUtils from '$lib/utils/general.utils';
 import { fail, json, redirect } from '@sveltejs/kit';
 import { error } from 'console';
 
@@ -26,7 +27,8 @@ export const Helpers = {
 		error: (message: string, status: number = 500) => {
 			return json({ error: message, message }, { status, headers: { 'Content-Type': 'application/json' } });
 		}
-    },
+	},
+	general: GeneralUtils,
 	redirect: (url: string, status: number = 302) => {
 		const innerStatus = /30\d/g.test(status.toString()) ? status : 302;
         return redirect(innerStatus, url);

@@ -22,6 +22,7 @@
 				<button type="submit" class="btn btn-primary" disabled={csvData.datas.length == 0}>
 					Importar jugadores
 				</button>
+				
 				<a
 					href="/api/protected/download/players/csv"
 					download="players-template.csv"

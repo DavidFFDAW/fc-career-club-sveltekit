@@ -9,17 +9,20 @@ export const actions = {
 		const repository = new PlayerRepository();
 		
 		try {
-			const appPlayers = await repository.get();
+			const appPlayers = await repository.select({ slug: true });
 			const existingPlayers = appPlayers.map(player => player.slug);
+			
 			const headerKeys = formData.getAll('csv-header-item[]') as string[];
 			const arrayDatas = GeneralUtils.getArrayFormDatas(formData,
 				headerKeys.map((key) => `${key}[]`)
 			);
+			if (!arrayDatas || arrayDatas.length === 0) return Helpers.error('No data found in the CSV', 400);
 
 			const playersObject = arrayDatas.map((data) => {
+				const slug = data.slug || slugify(data.name);
 				const player = {
 					name: data['name'] || '',
-					slug: data['slug-name'] || slugify(data['name']),
+					slug: slug,
 					number: Number(data['number']) || 0,
 					position: data['position'] || '',
 					shirt_name: data['shirt_name'] || '',
@@ -28,7 +31,7 @@ export const actions = {
 					age: Number(data['age']) || 0,
 					overall_increment: Number(data['overall_increment']) || null,
 					status: (data['status'] as string) || 'active',
-					type: existingPlayers.includes(data['slug-name'] || '') ? 'update' : 'create',
+					type: existingPlayers.includes(slug) ? 'update' : 'create',
 				};
 				return player;
 			});
@@ -41,52 +44,9 @@ export const actions = {
 				return rest as Prisma.PlayersCreateInput;
 			});
 
-			if (createPlayers.length <= 0) return Helpers.error('No new players to create', 400);
+			if (createPlayers.length <= 0) return Helpers.error('No hay jugadores nuevos para importar', 400);
 			await repository.bulkCreate(createPlayersWithNoType);
-			return Helpers.success('CSV data processed successfully', 200);
-
-
-
-			// const players = formData.getAll('name[]') as string[];
-			// if (!players || players.length === 0) return Helpers.error('No players provided', 400);
-
-			// const keys = Array.from(formData.entries()).filter(([key]) => key.includes('[]'));
-			// const uniqueKeys = new Set(keys.map(([key]) => key.replace('[]', '')));
-			// if (uniqueKeys.size === 0) return Helpers.error('No valid player data provided', 400);
-
-			// const playerFields = Array.from(uniqueKeys)
-			// 	.map((key) => formData.getAll(`${key}[]`))
-			// 	.filter((arr) => arr.length > 0);
-			// const existingPlayers = await repository.get();
-			// const nonExistingPlayers = players.filter(
-			// 	(player) => !existingPlayers.some((existingPlayer) => existingPlayer.name === player)
-			// );
-			// const fields = nonExistingPlayers.map((_, index: number) => {
-			// 	return playerFields.reduce((acc: Record<string, any>, field, fieldIndex) => {
-			// 		const fieldName = Array.from(uniqueKeys)[fieldIndex];
-			// 		acc[fieldName] = field[index] || '';
-			// 		return acc;
-			// 	}, {});
-			// });
-
-			// const parsedCreatingPlayers = fields.map((player) => {
-			// 	return {
-			// 		name: player.name,
-			// 		slug: player['slug-name'] || '',
-			// 		number: Number(player.number) || 0,
-			// 		position: player.position || '',
-			// 		shirt_name: player.shirt_name || '',
-			// 		country: player.country || '',
-			// 		overall: Number(player.overall) || 0,
-			// 		age: Number(player.age) || 0,
-			// 		overall_increment: Number(player.overall_increment) || null,
-			// 		status: (player.status as string) || 'active',
-			// 	} as Prisma.PlayersCreateInput;
-			// }).filter((player) => player.name);
-			
-			// const createdPlayers = await repository.bulkCreate(parsedCreatingPlayers);
-			// if (createdPlayers.length === 0) return Helpers.error('No players were created', 400);
-			// return Helpers.success('Players imported successfully', 201);
+			return Helpers.success('Se han importado los jugadores correctamente', 200);
 		} catch (error) {
 			console.error('Error importing players:', error);
 			Helpers.error('Failed to import players', 500);

@@ -35,7 +35,7 @@
 					</div>
 
                     <div class="button-group">
-                        <a type="button" href="{data.url.path}/update/{post.slug}" class="btn small warn" aria-label="Editar">
+                        <a type="button" href="{data.url.path}/update/{post.slug}?slug={post.slug}" class="btn small warn" aria-label="Editar">
                             <i class="bi bi-pencil"></i>
                         </a>
                         <button type="button" class="btn small danger" aria-label="Eliminar">

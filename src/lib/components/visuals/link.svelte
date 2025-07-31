@@ -1,17 +1,12 @@
-<script lang='ts'>
-	import Icon from "./icon.svelte";
-
-  export let href: string;
-  export let icon: string | null = null;
-  export let text: string;
+<script lang="ts">
+	export let href: string;
+	export let title: string;
+	export let icon: string | null = null;
 </script>
 
-<a href="{href}" class="{$$restProps.class} app-link-container" class:iconed={icon} {...$$restProps}>
-  {#if icon}
-	<Icon icon={icon} />
-  {/if}
-
-  {text}  
+<a {href} aria-label={title} title={title} class="app-link-container link {$$restProps.class}" class:iconed={icon} {...$$restProps}>
+	{#if icon} <i class="bi bi-{icon}"></i> {/if}
+	<slot></slot>
 </a>
 
 <style>
